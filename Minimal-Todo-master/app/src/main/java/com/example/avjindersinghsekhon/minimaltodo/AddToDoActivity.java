@@ -114,7 +114,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         ImageButton reminderIconImageButton;
         TextView reminderRemindMeTextView;
 
-
+        //@lv 确定light还是dark主题
         theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.LIGHTTHEME)){
             setTheme(R.style.CustomStyle_LightTheme);
@@ -130,8 +130,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         setContentView(R.layout.activity_todo_test);
 
         //Show an X in place of <-
+        //@lv 叉子图案参数
         final Drawable cross = getResources().getDrawable(R.drawable.ic_clear_white_24dp);
         if(cross !=null){
+            //@lv PorterDuff.Mode.SRC_ATOP,取下层非交集部分与上层交集部分
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
 
@@ -141,9 +143,13 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         /*getSupportActionBar(): Support library version of getActionBar(). */
 
         if(getSupportActionBar()!=null){
+            //@lv action bar和页面在一个平面?
             getSupportActionBar().setElevation(0);
+            //@lv 不显示activity title/subtitle(boolean)
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+            //@lv Set home should not be displayed as an "up" affordance.
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //@lv Set an alternate drawable to display next to the icon/logo/title when DISPLAY_HOME_AS_UP is enabled.
             getSupportActionBar().setHomeAsUpIndicator(cross );
 
         }
@@ -162,7 +168,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         Returns: the value of an item that previously added with putExtra() or null if no Serializable value was found.
         */
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
-
         mUserEnteredText = mUserToDoItem.getToDoText();
         mUserHasReminder = mUserToDoItem.hasReminder();
         mUserReminderDate = mUserToDoItem.getToDoDate();
@@ -181,7 +186,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         reminderIconImageButton = (ImageButton)findViewById(R.id.userToDoReminderIconImageButton);
         //@lv add reminder,text view,闹钟之后的文字
         reminderRemindMeTextView = (TextView)findViewById(R.id.userToDoRemindMeTextView);
-        //@lv app theme
+        //@lv app theme不同时,ImageButton不同
         if(theme.equals(MainActivity.DARKTHEME)){
             reminderIconImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_alarm_add_white_24dp));
             reminderRemindMeTextView.setTextColor(Color.WHITE);
@@ -193,7 +198,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         //@lv text view for input title
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
-        //@lv A Switch is a two-state toggle switch widget that can select between two options.
+        //@lv A Switch is a two-state toggle switch widget that can select between two options.(SwitchCompat)
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
         //action button
@@ -209,14 +214,17 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             }
         });
 
-
+        //@lv if有reminder&reminder date
         if(mUserHasReminder && (mUserReminderDate!=null)){
 //            mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
+            //@lv setReminderTextView is a method
             setReminderTextView();
             setEnterDateLayoutVisibleWithAnimations(true);
         }
         if(mUserReminderDate==null){
+            //@lv SwitchCompat
             mToDoDateSwitch.setChecked(false);
+
             mReminderTextView.setVisibility(View.INVISIBLE);
         }
 
@@ -517,6 +525,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         calendar.set(year, month, day, hour, minute);
         mUserReminderDate = calendar.getTime();
+        //@lv setReminderTextView is a method
         setReminderTextView();
 //        setDateAndTimeEditText();
         setDateEditText();
@@ -539,6 +548,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         calendar.set(year, month, day, hour, minute, 0);
         mUserReminderDate = calendar.getTime();
 
+        //@lv setReminderTextView is a method
         setReminderTextView();
 //        setDateAndTimeEditText();
         setTimeEditText();
@@ -561,9 +571,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mTimeEditText.setText(formatDate(dateFormat, mUserReminderDate));
     }
 
+    //@lv 判断页面下方reminder set for *** 是否显示
     public void setReminderTextView(){
         if(mUserReminderDate!=null){
-            //@lv 如果reminder date不为空,则
+            //@lv 如果reminder date不为空,则reminder set for ***显示
             mReminderTextView.setVisibility(View.VISIBLE);
             //@lv reminder date 必须在today之后
             if(mUserReminderDate.before(new Date())){
@@ -665,8 +676,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         setDate(year, month, day);
     }
 
+
     public void setEnterDateLayoutVisible(boolean checked){
         if(checked){
+            //@lv mUserDateSpinnerContainingLinearLayout is linear layout
             mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
         }
         else{
@@ -676,11 +689,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
     public void setEnterDateLayoutVisibleWithAnimations(boolean checked){
         if(checked){
+            //@lv setReminderTextView is a method
             setReminderTextView();
+            //@lv linear layout is linear layout
             mUserDateSpinnerContainingLinearLayout.animate().alpha(1.0f).setDuration(500).setListener(
                     new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
+                            //@lv linear layout 可见
                             mUserDateSpinnerContainingLinearLayout.setVisibility(View.VISIBLE);
                         }
 
@@ -708,6 +724,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
+                            //@lv 不可见
                             mUserDateSpinnerContainingLinearLayout.setVisibility(View.INVISIBLE);
                         }
 
