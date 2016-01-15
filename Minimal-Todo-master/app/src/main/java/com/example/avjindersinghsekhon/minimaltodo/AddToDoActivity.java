@@ -177,23 +177,31 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 //        }
 
 
+        //@lv add reminder页面上的闹钟图标
         reminderIconImageButton = (ImageButton)findViewById(R.id.userToDoReminderIconImageButton);
+        //@lv add reminder,text view,闹钟之后的文字
         reminderRemindMeTextView = (TextView)findViewById(R.id.userToDoRemindMeTextView);
+        //@lv app theme
         if(theme.equals(MainActivity.DARKTHEME)){
             reminderIconImageButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_alarm_add_white_24dp));
             reminderRemindMeTextView.setTextColor(Color.WHITE);
         }
 
-
+        //@lv add reminder页面的layout
         mContainerLayout = (LinearLayout)findViewById(R.id.todoReminderAndDateContainerLayout);
+        //@lv add reminder页面下半部分的layout
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
+        //@lv text view for input title
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
+        //@lv A Switch is a two-state toggle switch widget that can select between two options.
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
 //        mLastSeenTextView = (TextView)findViewById(R.id.toDoLastEditedTextView);
+        //action button
         mToDoSendFloatingActionButton = (FloatingActionButton)findViewById(R.id.makeToDoFloatingActionButton);
+        //text view reminder set for ***
         mReminderTextView = (TextView)findViewById(R.id.newToDoDateTimeReminderTextView);
 
-
+        //@lv 点击屏幕其他位置的时候隐藏键盘
         mContainerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -555,7 +563,9 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
     public void setReminderTextView(){
         if(mUserReminderDate!=null){
+            //@lv 如果reminder date不为空,则
             mReminderTextView.setVisibility(View.VISIBLE);
+            //@lv reminder date 必须在today之后
             if(mUserReminderDate.before(new Date())){
                 Log.d("OskarSchindler", "DATE is "+mUserReminderDate);
                 mReminderTextView.setText(getString(R.string.date_error_check_again));
@@ -563,22 +573,28 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
                 return;
             }
             Date date = mUserReminderDate;
+            //@lv 规定reminder date格式
             String dateString = formatDate("d MMM, yyyy", date);
             String timeString;
             String amPmString = "";
 
+            //@lv reminder date使用24小时格式
             if(DateFormat.is24HourFormat(this)){
                 timeString = formatDate("k:mm", date);
             }
             else{
+                //@lv reminder date使用12小时格式
                 timeString = formatDate("h:mm", date);
                 amPmString = formatDate("a", date);
             }
+            //@lv add to do页面最下方的reminder set for格式(string),颜色
+
             String finalString = String.format(getResources().getString(R.string.remind_date_and_time), dateString, timeString, amPmString);
             mReminderTextView.setTextColor(getResources().getColor(R.color.secondary_text));
             mReminderTextView.setText(finalString);
         }
         else{
+            //@lv 如果reminder date为空,reminder set for ***不显示
             mReminderTextView.setVisibility(View.INVISIBLE);
 
         }
