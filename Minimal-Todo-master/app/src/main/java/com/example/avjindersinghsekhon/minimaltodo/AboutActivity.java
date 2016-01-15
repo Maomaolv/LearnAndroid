@@ -25,6 +25,7 @@ public class AboutActivity extends AppCompatActivity {
 //    private UUID mId;
     private AnalyticsApplication app;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         app = (AnalyticsApplication)getApplication();
