@@ -215,14 +215,17 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         setEnterDateLayoutVisible(mToDoDateSwitch.isChecked());
 
+        //@lv check reminder me的按钮是否划开
         mToDoDateSwitch.setChecked(mUserHasReminder && (mUserReminderDate != null));
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    //@lv 如果向右划开,set reminder
                     app.send(this, "Action", "Reminder Set");
                 }
                 else{
+                    //@lv 否则 reminder removed
                     app.send(this, "Action", "Reminder Removed");
 
                 }
@@ -291,7 +294,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //@lv set reminder date
                 Date date;
                 hideKeyboard(mToDoTextBodyEditText);
                 if(mUserToDoItem.getToDoDate()!=null){
