@@ -322,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*
         CoordinatorLayout 实现了多种Material Design中提到的滚动效果
+        FloatingActionButton is the floating button
          */
         mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
@@ -335,6 +336,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 app.send(this, "Action", "FAB pressed");
+
+                /*
+
+                */
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
                 ToDoItem item = new ToDoItem("", false, null);
                 int color = ColorGenerator.MATERIAL.getRandomColor();

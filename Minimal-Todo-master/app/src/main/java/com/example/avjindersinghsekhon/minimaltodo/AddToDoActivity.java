@@ -34,9 +34,42 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/*
+@moss
+AppCompatActivity is base class for activities that use the support library action bar features.
+You can add an ActionBar to your activity when running on API level 7 or higher 
+by extending this class for your activity and setting the activity theme to Theme.AppCompat or a similar theme.
+
+AppCompat ：为api 7+的设备带来material color palette ，widget着色，Toolbar以及其他功能,
+内部实现原理其实是通过AppCompatDelegate 来完成的。AppCompatDelegate是一个可以放在任意Activity中，并且回调相应生命周期的类
+AppCompat的控件自动着色功能对于app具有一致的体验与认可度是非常有用的。
+这是自动完成的，你只要用AppCompatButton替代Button，AppCompatTextView替代TextView ，等等
+*/
+
+/*
+DatePickerDialog: A simple dialog containing an DatePicker.
+DatePickerDialog.OnDateSetListener: The callback used to indicate the user is done filling in the date.
+
+
+
+
+*/
 public class AddToDoActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
     private Date mLastEdited;
     private EditText mToDoTextBodyEditText;
+
+    /*
+    SwitchCompat is a version of the Switch widget which on devices back to API v7. 
+    It does not make any attempt to use the platform provided widget on those devices which it is available normally.
+
+    A Switch is a two-state toggle switch widget that can select between two options. 
+    The user may drag the "thumb" back and forth to choose the selected option, 
+    or simply tap to toggle as if it were a checkbox. 
+    The text property controls the text displayed in the label for the switch, 
+    whereas the off and on text controls the text on the thumb. Similarly, 
+    the textAppearance and the related setTypeface() methods control the typeface and style of label text, 
+    whereas the switchTextAppearance and the related seSwitchTypeface() methods control that of the thumb.
+    */
     private SwitchCompat mToDoDateSwitch;
 //    private TextView mLastSeenTextView;
     private LinearLayout mUserDateSpinnerContainingLinearLayout;
@@ -105,6 +138,8 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
+        /*getSupportActionBar(): Support library version of getActionBar(). */
+
         if(getSupportActionBar()!=null){
             getSupportActionBar().setElevation(0);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -113,7 +148,19 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         }
 
+        /*
+        first, this activity get to do item from main activity, using intent
+        then, get to do content
+        iterate the to do list to find whether any of them has a reminder, 
+        if that, set a alarm
 
+        */
+
+        /*
+        public Serializable getSerializableExtra (String name): Retrieve extended data from the intent.
+        name    : The name of the desired item.
+        Returns: the value of an item that previously added with putExtra() or null if no Serializable value was found.
+        */
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
 
         mUserEnteredText = mUserToDoItem.getToDoText();
