@@ -120,12 +120,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         setSupportActionBar(mToolbar);
 
         if(getSupportActionBar()!=null){
-            //@lv action bar和页面在一个平面?
             /*
+            @moss
             The action bar's elevation is the distance it is placed from its parent surface. Higher values are closer to the user.
             Set the Z-axis elevation of the action bar in pixels.
             this code indicates that, the X button is not floating
             */
+
+            //@lv action bar和页面在一个平面?
             getSupportActionBar().setElevation(0);
             //@lv 不显示activity title/subtitle(boolean)
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -167,6 +169,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         //@lv add reminder页面下半部分的layout
         mUserDateSpinnerContainingLinearLayout = (LinearLayout)findViewById(R.id.toDoEnterDateLinearLayout);
         //@lv text view for input title
+        /*
+        @moss
+        this is the edit text, not a textView
+        EditText 与 TextView共享大部分XML属性, 但是EditText可以接受用户输入;
+        EditText最重要的属性是android:inputType, 该属性用来定义输入的数据类型;
+        AutoCompletetextView, 该组件是带自动完成功能的组件, 通常与Adapter一起使用;
+        ExtractEditText, EditText的底层服务类, 负责提供全屏输入法;
+         */
         mToDoTextBodyEditText = (EditText)findViewById(R.id.userToDoEditText);
         //@lv A Switch is a two-state toggle switch widget that can select between two options.(SwitchCompat)
         mToDoDateSwitch = (SwitchCompat)findViewById(R.id.toDoHasDateSwitchCompat);
@@ -193,21 +203,39 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         }
         if(mUserReminderDate==null){
             //@lv SwitchCompat
+            /*
+            @moss
+            如果user 没有输入 reminder data， set “remind me” 为没有标记上
+            因此，在界面底部也不会显示 “remind me ..”
+             */
             mToDoDateSwitch.setChecked(false);
-
             mReminderTextView.setVisibility(View.INVISIBLE);
         }
 
 //        TextInputLayout til = (TextInputLayout)findViewById(R.id.toDoCustomTextInput);
 //        til.requestFocus();
         mToDoTextBodyEditText.requestFocus();
+
+        /*
+        @moss
+        把edit text 里的文字设定为 这个文字
+        原因是，如果这不是新加的todo的话， 可能是modify 已有的todo，所以，需要显示原有的文字。
+         */
         mToDoTextBodyEditText.setText(mUserEnteredText);
+
+        /*
+        @moss
+        InputMethodManager是一个用于控制显示或隐藏输入法面板的类（当然还有其他作用）。
+         */
         InputMethodManager imm = (InputMethodManager)this.getSystemService(INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(mToDoTextBodyEditText, InputMethodManager.SHOW_IMPLICIT);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         mToDoTextBodyEditText.setSelection(mToDoTextBodyEditText.length());
 
-
+        /*
+        @moss
+        if the content of the edit text is changed, it will trigger a text Changed listener
+         */
         mToDoTextBodyEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -237,6 +265,14 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                /*
+                @moss
+
+                if this switch button is checked,  send information to analytics class
+                in this code, have nothing to do with the code.
+                lv is wrong... I guess
+                 */
                 if(isChecked){
                     //@lv 如果向右划开,set reminder
                     app.send(this, "Action", "Reminder Set");
@@ -257,7 +293,13 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             }
         });
 
-
+        /*
+        @moss
+         set a on click listener to the fab
+         if the reminder date is not null or the date is already passed, cancel the reminder
+         otherwise, run the makeResult() method
+         then, hide the key board, and finish this activity.
+         */
         mToDoSendFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,10 +316,19 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             }
         });
 
-
+        /*
+        find the data EditText and time EditText view from R file
+        and set on click listener to themselves separately
+         */
         mDateEditText = (EditText)findViewById(R.id.newTodoDateEditText);
         mTimeEditText = (EditText)findViewById(R.id.newTodoTimeEditText);
 
+        /*
+        @moss
+
+        if user clicks the data EditText, by default, it shows today
+        if user chooses another date, then it changes to anther date
+         */
         mDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -394,7 +445,11 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 //        });
 
     }
-
+    /*
+    @moss
+    if the item is already has a reminder, the time and date EditText is set to the default one
+    otherwise, set it to today and next hour
+     */
     private void setDateAndTimeEditText(){
 
         if(mUserToDoItem.hasReminder() && mUserReminderDate!=null){
@@ -467,7 +522,12 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     }
 
 
-
+    /*
+    @moss
+    setDate,
+    if user set a date the earlier to today
+     a message will show
+     */
     public void setDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         int hour, minute;
@@ -697,7 +757,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            //@lv 不可见
                             mUserDateSpinnerContainingLinearLayout.setVisibility(View.INVISIBLE);
                         }
 
