@@ -127,6 +127,7 @@ public class AboutActivity extends AppCompatActivity {
             case android.R.id.home:
 
                 /*
+                @moss
                 NavUtils provides helper functionality for applications implementing recommended Android UI navigation patterns.
                 public static String getParentActivityName (Activity sourceActivity)
                 Return the fully qualified class name of sourceActivity's parent activity 
