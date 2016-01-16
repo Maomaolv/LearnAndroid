@@ -24,6 +24,14 @@ import java.util.UUID;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
+/*
+@moss
+
+this is the class to set a reminder to items
+however, in the app of APPROACHING, we don't need this system service
+so, i'd like to comment this class out
+ */
+
 public class ReminderActivity extends AppCompatActivity{
     private TextView mtoDoTextTextView;
     private Button mRemoveToDoButton;
@@ -42,6 +50,12 @@ public class ReminderActivity extends AppCompatActivity{
 //        app = (AnalyticsApplication)getApplication();
 //        app.send(this);
 
+        /*
+        @moss
+        in the onCreate phase
+        check and set theme first
+        then, retrieve data from the file, use the method provided in mainActivity
+         */
         theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.LIGHTTHEME)){
             setTheme(R.style.CustomStyle_LightTheme);
@@ -78,6 +92,9 @@ public class ReminderActivity extends AppCompatActivity{
 //        mtoDoTextTextView.setBackgroundColor(item.getTodoColor());
         mtoDoTextTextView.setText(mItem.getToDoText());
 
+        /*
+        set color to text according to the theme
+         */
         if(theme.equals(MainActivity.LIGHTTHEME)){
             mSnoozeTextView.setTextColor(getResources().getColor(R.color.secondary_text));
         }
@@ -110,7 +127,12 @@ public class ReminderActivity extends AppCompatActivity{
 //        mSnoozeSpinner.setSelection(0);
 
     }
-
+    /*
+    @moss
+    this method uses intent
+    when closing this app,
+    reminderActivity will send data to mainActivity
+     */
     private void closeApp(){
         Intent i = new Intent(ReminderActivity.this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -136,6 +158,10 @@ public class ReminderActivity extends AppCompatActivity{
         editor.apply();
     }
 
+    /*
+    @moss
+    get current time
+     */
     private Date addTimeToDate(int mins){
 //        app.send(this, "Action", "Snoozed", "For "+mins+" minutes");
         Date date = new Date();
@@ -144,6 +170,10 @@ public class ReminderActivity extends AppCompatActivity{
         calendar.add(Calendar.MINUTE, mins);
         return calendar.getTime();
     }
+    /*
+    @moss
+    获取时间的转盘？
+     */
     private int valueFromSpinner(){
         switch (mSnoozeSpinner.getSelectedItemPosition()){
             case 0:
@@ -186,6 +216,11 @@ public class ReminderActivity extends AppCompatActivity{
 //        }
 //    }
 
+
+    /*
+    @moss
+    write data to json file
+     */
     private void saveData(){
         try{
             storeRetrieveData.saveToFile(mToDoItems);

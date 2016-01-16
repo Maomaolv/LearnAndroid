@@ -674,10 +674,12 @@ public class MainActivity extends AppCompatActivity {
             mIndexOfDeletedToDoItem = position;
             Intent i = new Intent(MainActivity.this,TodoNotificationService.class);
             deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
+
             /*
             @moss
             notifyItemRemoved()和 notifyItemMoved()的调用非常重要，有了它们Adapter才能知道发生了改变。
              */
+
             notifyItemRemoved(position);
 
 //            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
