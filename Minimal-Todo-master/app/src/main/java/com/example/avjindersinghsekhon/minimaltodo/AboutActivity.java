@@ -25,16 +25,21 @@ public class AboutActivity extends AppCompatActivity {
 //    private UUID mId;
     private AnalyticsApplication app;
 
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         app = (AnalyticsApplication)getApplication();
         app.send(this);
-        /*@lv change app theme
-        getSharedPreferences(name, mode)*/
+
+        /*
+        @moss
+        in the onCreate phase, app gets the theme,
+        if the theme is dark theme, just set the theme to dark
+        otherwise, set the light theme
+
+        then, set the color of the bakck arrow " <--" to white
+        */
         theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.DARKTHEME)){
-            //@lv Log.d(TAG,Message) :Debug
             Log.d("OskarSchindler", "One");
             setTheme(R.style.CustomStyle_DarkTheme);
         }
@@ -45,22 +50,27 @@ public class AboutActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
-
+        
         Intent i = getIntent();
 //        mId = (UUID)i.getSerializableExtra(TodoNotificationService.TODOUUID);
 
-        //@lv setup back Arrow
         final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         if(backArrow!=null){
-            /*@lv 设置颜色过滤，这个方法需要我们传入一个ColorFilter参数同样也会返回一个ColorFilter实例
-            PorterDuff.Mode.SRC_ATOP,取下层非交集部分与上层交集部分
-            构造ComposeShader需要 PorterDuffXfermode或者PorterDuff.Mode作为参数
-            设置返回按钮外观*/
             backArrow.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
         }
         try{
-            //@lv Return PackageManager instance to find global package information.
+
+            /*
+            @moss
+            通过PackageManager可以获取手机端已安装的apk文件的信息
+            PackageManager这个类是用来返回各种的关联了当前已装入设备了的应用的包的信息。你可以通过getPacageManager来得到这个类。 
+            通过 PackageInfo  获取具体信息方法： 
+            包名获取方法：packageInfo.packageName 
+            icon获取获取方法：packageManager.getApplicationIcon(applicationInfo) 
+            应用名称获取方法：packageManager.getApplicationLabel(applicationInfo) 
+            使用权限获取方法：packageManager.getPackageInfo packageName,PackageManager.GET_PERMISSIONS).requestedPermissions
+            */
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
             appVersion = info.versionName;
         }
@@ -68,15 +78,21 @@ public class AboutActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //@lv mVersionTextView is a TextView,we can find it in R file
+
+        /*
+        @moss
+        first, find the TextView, which named mverisionTextview from R.id
+        second, set the text, which is from R.string, to this TextView 
+        third, find the Toolbar, which named toolbar, from R.id
+        fourth, find the TextView, which is named contactMe, from R.id
+
+        set an on click listener to the contactMe info, which will trigger a app.send method
+        */
         mVersionTextView = (TextView)findViewById(R.id.aboutVersionTextView);
         mVersionTextView.setText(String.format(getResources().getString(R.string.app_version), appVersion));
-        //@lv toolbar is a Toolbar,we can find it in R file
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-        //@lv contactMe is a TextView,we can find it in R file
         contactMe = (TextView)findViewById(R.id.aboutContactMe);
 
-        //@lv set OnClickListener for TextView contactMe
         contactMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,24 +100,39 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-
-        //@lv setup SupportActionBar=toolbar
+        /*
+        @moss
+        关于使用toobar 的layout:
+        1. 在 activity_main.xml 里面添加 Toolbar 控件：
+        2.在 MainActivity.java 中加入 Toolbar 的声明：
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+        声明后，再将之用 setSupportActionBar 设定，Toolbar即能取代原本的 actionbar 了
+        */
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null){
-            //@lv 点击返回=true,返回该app的逻辑层级的上一层
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            //@lv 点击backArrow返回
             getSupportActionBar().setHomeAsUpIndicator(backArrow);
         }
     }
 
+    /*
+    @moss
+    this is the menu on the left top on the screen
+    click this will navigate user back to main activity
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                //@lv NavUtils provides helper functionality for applications implementing recommended Android UI navigation patterns.
+
+                /*
+                NavUtils provides helper functionality for applications implementing recommended Android UI navigation patterns.
+                public static String getParentActivityName (Activity sourceActivity)
+                Return the fully qualified class name of sourceActivity's parent activity 
+                as specified by a PARENT_ACTIVITY <meta-data> element within the activity element in the application's manifest.
+                */
                 if(NavUtils.getParentActivityName(this)!=null){
-                    //@lv 点击按钮后,回到home页面
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 return true;
