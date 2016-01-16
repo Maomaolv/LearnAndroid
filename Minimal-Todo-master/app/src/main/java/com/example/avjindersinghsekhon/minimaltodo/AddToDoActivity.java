@@ -50,6 +50,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private Button mChooseDateButton;
     private Button mChooseTimeButton;
     private ToDoItem mUserToDoItem;
+
+    /*
+    this is the floating action button in the middle of the screen
+    */
     private FloatingActionButton mToDoSendFloatingActionButton;
     public static final String DATE_FORMAT = "MMM d, yyyy";
     public static final String DATE_FORMAT_MONTH_DAY = "MMM d";
@@ -104,11 +108,24 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             cross.setColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.SRC_ATOP);
         }
 
+        /*
+        @moss
+        很多的Android应用左上角都有返回按钮, 在默认的情况下 ADT会默认给一个返回图标
+        而作为开发需求 很多都要求定制一个新的图标
+        以下的代码，是一个定制的toolbar，上面有一个X，点击X 则返回HOME
+        这个toobar 被设置成 和页面在同一水平，不显示标题，
+        */
+
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         if(getSupportActionBar()!=null){
             //@lv action bar和页面在一个平面?
+            /*
+            The action bar's elevation is the distance it is placed from its parent surface. Higher values are closer to the user.
+            Set the Z-axis elevation of the action bar in pixels.
+            this code indicates that, the X button is not floating
+            */
             getSupportActionBar().setElevation(0);
             //@lv 不显示activity title/subtitle(boolean)
             getSupportActionBar().setDisplayShowTitleEnabled(false);
