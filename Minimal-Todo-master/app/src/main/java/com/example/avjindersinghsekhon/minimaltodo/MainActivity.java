@@ -360,12 +360,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                app.send(this, "Action", "FAB pressed");
+                /*
+                @moss
+                if the fab is clicked, an intend will be triggered, to start the AddToDoActivity
+                 */
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
+
+                /*
+                @moss
+                click the fac will generate a new empty TodoItem
+                 */
                 ToDoItem item = new ToDoItem("", false, null);
 
                 /*
+                @moss
+                todo: I tested this code, it's set color to the circle view in the left of item
+                according to the logic:
+                if the time is not set yet, the color will be gray
+                if the time is set, if the time is more than seven days, set to green
+                less than seven days and more than three days to yellow
+                less tha three days is red.
+
                 !!!!!!!!!will set random color to the list view!!!!!--------
                  */
+                // @moss comments this color out, accordingly
                 int color = ColorGenerator.MATERIAL.getRandomColor();
                 item.setTodoColor(color);
                 //noinspection ResourceType
@@ -777,9 +795,11 @@ public class MainActivity extends AppCompatActivity {
             if(item.hasReminder() && item.getToDoDate()!=null){
                 holder.mToDoTextview.setMaxLines(1);
                 holder.mTimeTextView.setVisibility(View.VISIBLE);
+                holder.mCountingTextView.setVisibility(View.VISIBLE);
 //                holder.mToDoTextview.setVisibility(View.GONE);
             }
             else{
+                holder.mCountingTextView.setVisibility(View.GONE);
                 holder.mTimeTextView.setVisibility(View.GONE);
                 holder.mToDoTextview.setMaxLines(3);
             }
