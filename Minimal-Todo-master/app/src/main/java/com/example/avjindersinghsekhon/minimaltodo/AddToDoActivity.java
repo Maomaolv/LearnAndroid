@@ -267,6 +267,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         setEnterDateLayoutVisible(mToDoDateSwitch.isChecked());
 
         //@lv check reminder me的按钮是否划开
+        /*@moss
+        just set the following code to true is not right
+        tried, failed.
+         */
         mToDoDateSwitch.setChecked(mUserHasReminder && (mUserReminderDate != null));
         mToDoDateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -325,7 +329,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         /*
         @moss
         find the data EditText and time EditText view from R file
-        and set on click listener to themselves separately
+        and set on click listener to each of them separately
         newTodoDateEditText is from /res/layout/activity_to_test.xml
          */
         mDateEditText = (EditText)findViewById(R.id.newTodoDateEditText);

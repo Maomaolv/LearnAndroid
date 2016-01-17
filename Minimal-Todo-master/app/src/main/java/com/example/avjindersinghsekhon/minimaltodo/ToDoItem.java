@@ -44,7 +44,7 @@ public class ToDoItem implements Serializable{
     /*
     @moss
     add variable for counting times
-    todo: infact I don't need this, because this time is changing, don't have to write it into json file
+    todo: in fact I don't need this, because this time is changing, don't have to write it into json file
      */
     private static final String TODOCOUNTING = "todocounting";
 

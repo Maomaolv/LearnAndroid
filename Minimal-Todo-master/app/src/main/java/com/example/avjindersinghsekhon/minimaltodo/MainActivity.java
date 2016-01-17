@@ -31,6 +31,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     //CoordinatorLayout 实现了多种Material Design中提到的滚动效果。
     private CoordinatorLayout mCoordLayout;
 
-    //
     public static final String TODOITEM = "com.avjindersinghsekhon.com.avjindersinghsekhon.minimaltodo.MainActivity";
 
 
@@ -75,12 +75,38 @@ public class MainActivity extends AppCompatActivity {
     public static final String THEME_SAVED = "com.avjindersekhon.savedtheme";
     public static final String DARKTHEME = "com.avjindersekon.darktheme";
     public static final String LIGHTTHEME = "com.avjindersekon.lighttheme";
-//    private AnalyticsApplication app;
+    //    private AnalyticsApplication app;
     private String[] testStrings = {"Clean my room",
             "Water the plants",
             "Get car washed",
             "Get my dry cleaning"
     };
+
+    /*
+    @moss
+    add this method to calculate the time left to due time
+     */
+    public String CountingDate(Date dueDate) {
+
+        if (dueDate == null) {
+            return null;
+        }
+
+
+        Date curDate = Calendar.getInstance().getTime();
+
+        Long timeSpan = dueDate.getTime() - curDate.getTime();
+
+        long days = timeSpan / (1000 * 60 * 60 * 24);
+
+        long hours = (timeSpan - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+
+        long minutes = (timeSpan - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+
+        return  "time left: "+days+" days, "+hours+" hours, " +minutes+ " minutes";
+
+    }
+
 
 
     /*
@@ -373,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /*
                 @moss
-                todo: I tested this code, it's set color to the circle view in the left of item
+                 it's setting color to the circle view in the left of item
                 according to the logic:
                 if the time is not set yet, the color will be gray
                 if the time is set, if the time is more than seven days, set to green
@@ -788,8 +814,8 @@ public class MainActivity extends AppCompatActivity {
             /*
             @moss
             if this item has a reminder of to do date
-            set the to do list to just one line, because the time is the another line
-            otherwise, set the to do list to two lines and hence no space left for data information
+            set the to do list to just one line, because it has to give space to other textViews
+            otherwise, set the to do list to 3 lines and hence no space left for other TextViews
             text of items are from: item.getToDoText()
             text color is from todoTextColor
              */
@@ -832,7 +858,7 @@ public class MainActivity extends AppCompatActivity {
              */
             /*
             @moss
-            this drawable is the image that in front from every list withe a Letter from list
+            this drawable is the image that in front of each list with a  capital Letter from list
             we set this letter color to white
             use default font
             set it to upper case
@@ -852,16 +878,20 @@ public class MainActivity extends AppCompatActivity {
             @moss
             if any item has a data, make its format to 24hour
             otherwise, make it to 12hour format
+            todo:here is the place i shold place the CountingDateTextView, I guess
              */
+
             if(item.getToDoDate()!=null){
-                String timeToShow;
+                String dueTimeToShow;
+                String countingTimeToShow=AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
                 if(android.text.format.DateFormat.is24HourFormat(MainActivity.this)){
-                    timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
+                    dueTimeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
                 }
                 else{
-                    timeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
+                    dueTimeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
                 }
-                holder.mTimeTextView.setText(timeToShow);
+                holder.mTimeTextView.setText(dueTimeToShow);
+                holder.mCountingTextView.setText(countingTimeToShow);
             }
 
 
@@ -908,7 +938,9 @@ public class MainActivity extends AppCompatActivity {
                 mView = v;
 
                 /*
-                效果就是： 点击任何一个list， 可以修改。我觉得我们可以去掉这个效果，
+                @moss
+                效果就是： 点击任何一个list， 可以触发 AddToDoActivity。
+                我觉得我们可以去掉这个效果，
                 因为user 可能会误触这个list 而触发修改
                 我们预计的效果是，从右往左滑动，才是修改。
                  */
@@ -933,9 +965,6 @@ public class MainActivity extends AppCompatActivity {
 
                 /*
                 @moss add this text view to show  counting times
-                firstly, I will add just a line of string
-                later, i will add some time
-                then ,add a textview from R file
                  */
                 mCountingTextView = (TextView)v.findViewById(R.id.toDoListCountingTextView);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
