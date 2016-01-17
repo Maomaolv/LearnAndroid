@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
              */
             adapter = new BasicListAdapter(mToDoItemsArrayList);
             mRecyclerView.setAdapter(adapter);
-            setAlarms();
+//            setAlarms();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(CHANGE_OCCURED, false);
@@ -220,33 +220,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
+    @moss comments this method out
     set Alarms to a to do item
      */
-    private void setAlarms(){
-        /*@moss
-        first, check the to do item ArrayList, if it's not null
-        iterate this ArrayList,
-        if any item has a reminder or item has a to do date
-        check the to do date
-        if the date has passed, do nothing and continue
-        otherwise:
-        new an intent, to set the alarm
-         */
-        if(mToDoItemsArrayList!=null){
-            for(ToDoItem item : mToDoItemsArrayList){
-                if(item.hasReminder() && item.getToDoDate()!=null){
-                    if(item.getToDoDate().before(new Date())){
-                        item.setToDoDate(null);
-                        continue;
-                    }
-                    Intent i = new Intent(this, TodoNotificationService.class);
-                    i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
-                    i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
-                    createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-                }
-            }
-        }
-    }
+//    private void setAlarms(){
+//        /*@moss
+//        first, check the to do item ArrayList, if it's not null
+//        iterate this ArrayList,
+//        if any item has a reminder or item has a to do date
+//        check the to do date
+//        if the date has passed, do nothing and continue
+//        otherwise:
+//        new an intent, to set the alarm
+//         */
+//        if(mToDoItemsArrayList!=null){
+//            for(ToDoItem item : mToDoItemsArrayList){
+//                if(item.hasReminder() && item.getToDoDate()!=null){
+//                    if(item.getToDoDate().before(new Date())){
+//                        item.setToDoDate(null);
+//                        continue;
+//                    }
+//                    Intent i = new Intent(this, TodoNotificationService.class);
+//                    i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
+//                    i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
+//                    createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
+//                }
+//            }
+//        }
+//    }
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -303,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         storeRetrieveData = new StoreRetrieveData(this, FILENAME);
         mToDoItemsArrayList =  getLocallyStoredData(storeRetrieveData);
         adapter = new BasicListAdapter(mToDoItemsArrayList);
-        setAlarms();
+//        setAlarms();
 
 
 //        adapter.notifyDataSetChanged();
