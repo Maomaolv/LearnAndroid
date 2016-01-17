@@ -1,6 +1,5 @@
 package com.example.avjindersinghsekhon.minimaltodo;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +14,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         FILENAME is from: public static final String FILENAME = "todoitems.json"
         us this name and this activity to initialize a StoreRetrieveData object
         we already have a getLocallyStoredData() method in this class
-        put the object as param to get the ArrayList data from the FileName.json
+        put the this activity as param to get the ArrayList data from the FileName.json
         then, set List Adapter to this ArrayList
         and set Alarm to this list.
         about set Alarm method, just see the code above
@@ -338,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         /*
+        @moss
         CoordinatorLayout 实现了多种Material Design中提到的滚动效果
         目前这个框架提供了几种不用写动画代码就能工作的方法
         CoordinatorLayout可以用来配合浮动操作按钮的 layout_anchor 和 layout_gravity属性创造出浮动效果
@@ -347,12 +346,14 @@ public class MainActivity extends AppCompatActivity {
         不管是通过在xml中使用app:layout_behavior标签还是通过在代码中对view类使用@DefaultBehavior修饰符来添加注解。
         当滚动发生的时候，CoordinatorLayout会尝试触发那些声明了依赖的子view。
          */
-        mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
-        mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
 
         /*
-        set on click listener to the fab
+        @moss
+        get the layout and fab
+        then,set onClickListener to the fab
          */
+        mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
+        mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
             @SuppressWarnings("deprecation")
@@ -541,17 +542,17 @@ public class MainActivity extends AppCompatActivity {
 
 
             /*
-            @moss
+            @moss   comments it out
             if the data that returned from the "AddToDoActivity.class" has a reminder or data
             will trigger a alarm system service
              */
-            if(item.hasReminder() && item.getToDoDate()!=null){
-                Intent i = new Intent(this, TodoNotificationService.class);
-                i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
-                i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
-                createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-//                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
-            }
+//            if(item.hasReminder() && item.getToDoDate()!=null){
+//                Intent i = new Intent(this, TodoNotificationService.class);
+//                i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
+//                i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
+//                createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
+////                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
+//            }
 
             /*
             @moss
@@ -574,33 +575,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-    @moss
+    @moss comments it out
     在特定的时刻为我们广播一个指定的Intent。
     简单的说就是我们设定一个时间，然后在该时间到来时，AlarmManager为我们广播一个我们设定的Intent。
      */
-    private AlarmManager getAlarmManager(){
-        return (AlarmManager)getSystemService(ALARM_SERVICE);
-    }
+//    private AlarmManager getAlarmManager(){
+//        return (AlarmManager)getSystemService(ALARM_SERVICE);
+//    }
 
     private boolean doesPendingIntentExist(Intent i, int requestCode){
         PendingIntent pi = PendingIntent.getService(this,requestCode, i, PendingIntent.FLAG_NO_CREATE);
         return pi!=null;
     }
 
-    private void createAlarm(Intent i, int requestCode, long timeInMillis){
-        AlarmManager alarmManager = getAlarmManager();
-        PendingIntent pendingIntent = PendingIntent.getService(this, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-//        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pendingIntent.toString());
-    }
-    private void deleteAlarm(Intent i, int requestCode){
-        if(doesPendingIntentExist(i, requestCode)){
-            PendingIntent pendingIntent = PendingIntent.getService(this, requestCode,i, PendingIntent.FLAG_NO_CREATE);
-            pendingIntent.cancel();
-            getAlarmManager().cancel(pendingIntent);
-            Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
-        }
-    }
+    /*
+    moss comments it out
+     */
+//    private void createAlarm(Intent i, int requestCode, long timeInMillis){
+//        AlarmManager alarmManager = getAlarmManager();
+//        PendingIntent pendingIntent = PendingIntent.getService(this, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+////        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pendingIntent.toString());
+//    }
+
+    /*
+    moss comments it out
+     */
+//    private void deleteAlarm(Intent i, int requestCode){
+//        if(doesPendingIntentExist(i, requestCode)){
+//            PendingIntent pendingIntent = PendingIntent.getService(this, requestCode,i, PendingIntent.FLAG_NO_CREATE);
+//            pendingIntent.cancel();
+//            getAlarmManager().cancel(pendingIntent);
+//            Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
+//        }
+//    }
 
 
     /*
@@ -634,23 +642,25 @@ public class MainActivity extends AppCompatActivity {
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
 
-
+        /*
+        @moss
+        this method is for moving items from one position to another
+         */
         @Override
         public void onItemMoved(int fromPosition, int toPosition) {
+
+            /*
+            @moss
+            貌似是从上往下
+             */
            if(fromPosition<toPosition){
 
-               /*
-               this is the swap from left to right
-                */
                for(int i=fromPosition; i<toPosition; i++){
                    Collections.swap(items, i, i+1);
                }
            }
             else{
 
-               /*
-               this is the swap from right to left
-                */
                for(int i=fromPosition; i > toPosition; i--){
                    Collections.swap(items, i, i-1);
                }
@@ -697,11 +707,17 @@ public class MainActivity extends AppCompatActivity {
                             //Comment the line below if not using Google Analytics
 //                            app.send(this, "Action", "UNDO Pressed");
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
+
+                            /*
+                            @moss comments it out
+                            if the item that just deleted is not null or has a reminder
+                            trigger an intent and set alarm for this item
+                             */
                             if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
                                 Intent i = new Intent(MainActivity.this, TodoNotificationService.class);
                                 i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
                                 i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
-                                createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
+//                                createAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode(), mJustDeletedToDoItem.getToDoDate().getTime());
                             }
                             notifyItemInserted(mIndexOfDeletedToDoItem);
                         }
@@ -766,7 +782,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else{
                 holder.mTimeTextView.setVisibility(View.GONE);
-                holder.mToDoTextview.setMaxLines(2);
+                holder.mToDoTextview.setMaxLines(3);
             }
             holder.mToDoTextview.setText(item.getToDoText());
             holder.mToDoTextview.setTextColor(todoTextColor);
