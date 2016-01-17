@@ -82,30 +82,6 @@ public class MainActivity extends AppCompatActivity {
             "Get my dry cleaning"
     };
 
-    /*
-    @moss
-    add this method to calculate the time left to due time
-     */
-    public String CountingDate(Date dueDate) {
-
-        if (dueDate == null) {
-            return null;
-        }
-
-
-        Date curDate = Calendar.getInstance().getTime();
-
-        Long timeSpan = dueDate.getTime() - curDate.getTime();
-
-        long days = timeSpan / (1000 * 60 * 60 * 24);
-
-        long hours = (timeSpan - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-
-        long minutes = (timeSpan - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-
-        return  "time left: "+days+" days, "+hours+" hours, " +minutes+ " minutes";
-
-    }
 
 
 
@@ -882,8 +858,45 @@ public class MainActivity extends AppCompatActivity {
              */
 
             if(item.getToDoDate()!=null){
+
+                Date curDate = Calendar.getInstance().getTime();
+                Long timeSpan = item.getToDoDate().getTime() - curDate.getTime();
+
+
+                long days = timeSpan / (1000 * 60 * 60 * 24);
+                long hours = (timeSpan - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+                long minutes = (timeSpan - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
+
+//                if((minutes <0) && (hours <0) && (days <=0)){
+//                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
+//                }else if(days <1){
+//                    holder.mCountingTextView.setTextColor(Color.RED);
+//                }else if(days <3){
+//                    holder.mCountingTextView.setTextColor(Color.YELLOW);
+//                }else{
+//                    holder.mCountingTextView.setTextColor(Color.GREEN);
+//
+//                }
+
+                if(days>3){
+                    holder.mCountingTextView.setTextColor(Color.GREEN);
+
+                }else if(days>1){
+                    holder.mCountingTextView.setTextColor(Color.YELLOW);
+                }else if((days < 1) || (days >-1l)||(minutes >= 0) ||(hours >= 0)){
+                    holder.mCountingTextView.setTextColor(Color.RED);
+                }else {
+                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
+
+                }
+
+
+
+
                 String dueTimeToShow;
-                String countingTimeToShow=AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
+                String countingTimeToShow= days+" D, "+hours+" H, " +minutes+ " m left";
+
+
                 if(android.text.format.DateFormat.is24HourFormat(MainActivity.this)){
                     dueTimeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_24_HOUR, item.getToDoDate());
                 }
