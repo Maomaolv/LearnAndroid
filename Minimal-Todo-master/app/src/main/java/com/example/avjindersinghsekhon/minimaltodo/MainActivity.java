@@ -694,7 +694,6 @@ public class MainActivity extends AppCompatActivity {
             @moss
             notifyItemRemoved()和 notifyItemMoved()的调用非常重要，有了它们Adapter才能知道发生了改变。
              */
-
             notifyItemRemoved(position);
 
 //            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
@@ -880,6 +879,7 @@ public class MainActivity extends AppCompatActivity {
 //            TextView mColorTextView;
             ImageView mColorImageView;
             TextView mTimeTextView;
+            TextView mCountingTextView;
 //            int color = -1;
 
             public ViewHolder(View v){
@@ -909,6 +909,14 @@ public class MainActivity extends AppCompatActivity {
                 });
                 mToDoTextview = (TextView)v.findViewById(R.id.toDoListItemTextview);
                 mTimeTextView = (TextView)v.findViewById(R.id.todoListItemTimeTextView);
+
+                /*
+                @moss add this text view to show  counting times
+                firstly, I will add just a line of string
+                later, i will add some time
+                then ,add a textview from R file
+                 */
+                mCountingTextView = (TextView)v.findViewById(R.id.toDoListCountingTextView);
 //                mColorTextView = (TextView)v.findViewById(R.id.toDoColorTextView);
                 mColorImageView = (ImageView)v.findViewById(R.id.toDoListItemColorImageView);
                 linearLayout = (LinearLayout)v.findViewById(R.id.listItemLinearLayout);
