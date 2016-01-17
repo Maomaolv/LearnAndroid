@@ -29,6 +29,11 @@ public class ToDoItem implements Serializable{
 //    private Date mLastEdited;
     private int mTodoColor;
     private Date mToDoDate;
+    /*
+    @moss
+    add this variable to record the time left to the due time
+     */
+    private Date mCountingDate;
     private UUID mTodoIdentifier;
     private static final String TODOTEXT = "todotext";
     private static final String TODOREMINDER = "todoreminder";
@@ -36,12 +41,19 @@ public class ToDoItem implements Serializable{
     private static final String TODOCOLOR = "todocolor";
     private static final String TODODATE = "tododate";
     private static final String TODOIDENTIFIER = "todoidentifier";
+    /*
+    @moss
+    add variable for counting times
+    todo: infact I don't need this, because this time is changing, don't have to write it into json file
+     */
+    private static final String TODOCOUNTING = "todocounting";
 
 
     public ToDoItem(String todoBody, boolean hasReminder, Date toDoDate){
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
+//        mCountingDate =
         mTodoColor = Color.LTGRAY;
         mTodoIdentifier = UUID.randomUUID();
     }
@@ -125,6 +137,13 @@ public class ToDoItem implements Serializable{
     public void setToDoDate(Date mToDoDate) {
         this.mToDoDate = mToDoDate;
     }
+
+    /*
+    @moss added these two method for set and get mcountingdate
+     */
+    public void setCountingDate(Date mCountingDate){this.mCountingDate = mCountingDate;}
+
+    public Date getCountingDate(){return this.mCountingDate;}
 
 
     public UUID getIdentifier(){

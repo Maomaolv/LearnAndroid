@@ -63,6 +63,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     private boolean mUserHasReminder;
     private Toolbar mToolbar;
     private Date mUserReminderDate;
+    private Date mUserCountingDate;
     private int mUserColor;
     private boolean setDateButtonClickedOnce = false;
     private boolean setTimeButtonClickedOnce = false;
@@ -272,21 +273,21 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 /*
-                @moss
+                @moss comments this code out
 
                 if this switch button is checked,  send information to analytics class
                 in this code, have nothing to do with the code.
                 lv is wrong... I guess
                  */
-                if(isChecked){
-                    //@lv 如果向右划开,set reminder
-                    app.send(this, "Action", "Reminder Set");
-                }
-                else{
-                    //@lv 否则 reminder removed
-                    app.send(this, "Action", "Reminder Removed");
-
-                }
+//                if(isChecked){
+//                    //@lv 如果向右划开,set reminder
+//                    app.send(this, "Action", "Reminder Set");
+//                }
+//                else{
+//                    //@lv 否则 reminder removed
+//                    app.send(this, "Action", "Reminder Removed");
+//
+//                }
 
                 if (!isChecked) {
                     mUserReminderDate = null;
@@ -309,11 +310,11 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             @Override
             public void onClick(View v) {
                 if(mUserReminderDate!=null && mUserReminderDate.before(new Date())){
-                    app.send(this, "Action", "Date in the Past");
+//                    app.send(this, "Action", "Date in the Past");
                     makeResult(RESULT_CANCELED);
                 }
                 else{
-                    app.send(this, "Action", "Make Todo");
+//                    app.send(this, "Action", "Make Todo");
                     makeResult(RESULT_OK);
                 }
                 hideKeyboard(mToDoTextBodyEditText);
@@ -322,8 +323,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         });
 
         /*
+        @moss
         find the data EditText and time EditText view from R file
         and set on click listener to themselves separately
+        newTodoDateEditText is from /res/layout/activity_to_test.xml
          */
         mDateEditText = (EditText)findViewById(R.id.newTodoDateEditText);
         mTimeEditText = (EditText)findViewById(R.id.newTodoTimeEditText);
@@ -649,6 +652,10 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         }
     }
 
+    /*
+    @moss
+    set information for ToDoItems
+     */
     public void makeResult(int result){
         Intent i = new Intent();
         if(mUserEnteredText.length()>0){
@@ -660,12 +667,26 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             mUserToDoItem.setToDoText(mUserEnteredText);
         }
 //        mUserToDoItem.setLastEdited(mLastEdited);
+
+        /*
+        @moss
+        i guess this a method to set reminder
+        todo: will try to comment it out to check whether it's a reminder
+         */
         if(mUserReminderDate!=null){
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mUserReminderDate);
             calendar.set(Calendar.SECOND, 0);
             mUserReminderDate = calendar.getTime();
         }
+
+        /*
+        @moss
+        todo: first: have a counting days, second transfer it to days third to make it
+         */
+
+
+
         mUserToDoItem.setHasReminder(mUserHasReminder);
         mUserToDoItem.setToDoDate(mUserReminderDate);
         mUserToDoItem.setTodoColor(mUserColor);
@@ -673,6 +694,11 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         setResult(result, i);
     }
 
+    /*
+    @moss
+
+    override method if user press back button during this activity
+     */
     @Override
     public void onBackPressed() {
         if(mUserReminderDate.before(new Date())){
