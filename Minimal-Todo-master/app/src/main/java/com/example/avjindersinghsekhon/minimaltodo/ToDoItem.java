@@ -7,6 +7,20 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+/*
+@moss
+Android中Intent中如何传递对象,目前所知道的有两种方法，
+一种是Bundle.putSerializable(Key,Object);
+另一种是Bundle.putParcelable(Key, Object);
+当然这些Object是有一定的条件的，前者是实现了Serializable接口，而后者是实现了Parcelable接口
+
+
+Java的对象序列化是指将那些实现了Serializable接口的对象转换成一个字符序列，
+并能够在以后将这个字节序列完全恢复为原来的对象。
+这一过程甚至可通过网络进行，这意味着序列化机制能自动弥补不同操作系统之间的差异。
+只要对象实现了Serializable接口
+这个接口只是一个标记接口，不包含任何的方法
+ */
 public class ToDoItem implements Serializable{
     private String mToDoText;
     private boolean mHasReminder;
@@ -30,6 +44,14 @@ public class ToDoItem implements Serializable{
         mTodoIdentifier = UUID.randomUUID();
     }
 
+    /*
+    @moss
+    anther constructor of this class
+    it will get string from json object
+    and get information like whether this object has a reminder
+    and the color of the text
+    check whether the object  has a to do data
+     */
     public ToDoItem(JSONObject jsonObject) throws JSONException{
         mToDoText = jsonObject.getString(TODOTEXT);
         mHasReminder = jsonObject.getBoolean(TODOREMINDER);
@@ -44,6 +66,10 @@ public class ToDoItem implements Serializable{
         }
     }
 
+    /*
+    @moss this is public method
+    this method is to put content to json object
+     */
     public JSONObject toJSON() throws JSONException{
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(TODOTEXT, mToDoText);
@@ -58,7 +84,10 @@ public class ToDoItem implements Serializable{
         return jsonObject;
     }
 
-
+    /*
+    @moss
+    setters and getters
+     */
     public ToDoItem(){
         this("Clean my room", true, new Date());
     }
