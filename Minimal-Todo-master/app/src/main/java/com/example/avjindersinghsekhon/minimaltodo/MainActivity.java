@@ -399,9 +399,9 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //                else{
 //                    navBar = null;
+//                ActivityOptions options;
 //                }
 //                Pair<View, String> statusBar= Pair.create(statusView, statusView.getTransitionName());
-//                ActivityOptions options;
 //                if(navBar!=null){
 //                    options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, navBar, statusBar);
 //                }
