@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import org.json.JSONException;
 
@@ -368,7 +367,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /*
                 @moss
-                click the fac will generate a new empty TodoItem
+                click the FAB will generate a new empty TodoItem
                  */
                 ToDoItem item = new ToDoItem("", false, null);
 
@@ -384,8 +383,10 @@ public class MainActivity extends AppCompatActivity {
                 !!!!!!!!!will set random color to the list view!!!!!--------
                  */
                 // @moss comments this color out, accordingly
-                int color = ColorGenerator.MATERIAL.getRandomColor();
-                item.setTodoColor(color);
+//                int color = ColorGenerator.MATERIAL.getRandomColor();
+
+                //set the
+//                item.setTodoColor(Color.LTGRAY);
                 //noinspection ResourceType
 //                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);

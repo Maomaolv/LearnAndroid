@@ -1,5 +1,7 @@
 package com.example.avjindersinghsekhon.minimaltodo;
 
+import android.graphics.Color;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +42,7 @@ public class ToDoItem implements Serializable{
         mToDoText = todoBody;
         mHasReminder = hasReminder;
         mToDoDate = toDoDate;
-        mTodoColor = 1677725;
+        mTodoColor = Color.LTGRAY;
         mTodoIdentifier = UUID.randomUUID();
     }
 

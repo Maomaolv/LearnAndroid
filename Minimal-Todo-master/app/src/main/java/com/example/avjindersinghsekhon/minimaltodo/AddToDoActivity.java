@@ -157,6 +157,11 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         //@lv add reminder页面上的闹钟图标
         reminderIconImageButton = (ImageButton)findViewById(R.id.userToDoReminderIconImageButton);
         //@lv add reminder,text view,闹钟之后的文字
+        /*
+        i change the text from "Remind me" to "Due time"
+        the xml file name is in res/layout/activity_add_to_do.xml
+        the string is in res/values/string
+         */
         reminderRemindMeTextView = (TextView)findViewById(R.id.userToDoRemindMeTextView);
         //@lv app theme不同时,ImageButton不同
         if(theme.equals(MainActivity.DARKTHEME)){
