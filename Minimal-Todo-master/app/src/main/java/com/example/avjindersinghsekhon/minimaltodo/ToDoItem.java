@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -126,12 +127,32 @@ public class ToDoItem implements Serializable{
         return mToDoDate;
     }
 
+
+/*
+@moss
+this method a getter of todoColor
+if
+ */
     public int getTodoColor() {
+
+
+        Date curDate = Calendar.getInstance().getTime();
+        Long timeSpan = this.getToDoDate().getTime() - curDate.getTime();
+
+        if(timeSpan < 0 ){
+            this.mTodoColor = Color.LTGRAY;
+        }else if(timeSpan >1000 * 60*60*24*3){
+            this.mTodoColor = Color.GREEN;
+        }
+
         return mTodoColor;
     }
 
     public void setTodoColor(int mTodoColor) {
+
         this.mTodoColor = mTodoColor;
+
+
     }
 
     public void setToDoDate(Date mToDoDate) {

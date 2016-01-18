@@ -855,7 +855,7 @@ public class MainActivity extends AppCompatActivity {
             @moss
             if any item has a data, make its format to 24hour
             otherwise, make it to 12hour format
-            todo:here is the place i shold place the CountingDateTextView, I guess
+            todo:here is the place i should place the CountingDateTextView, I guess
              */
 
             if(item.getToDoDate()!=null){
@@ -886,19 +886,20 @@ public class MainActivity extends AppCompatActivity {
 //                holder.mColorImageView.setBackgroundColor(Color.GREEN);
 
                  */
-                if(days>=3){
-                    holder.mCountingTextView.setTextColor(Color.GREEN);
+//                if(days>=3){
+//                    holder.mCountingTextView.setTextColor(Color.GREEN);
+//
+//                }else if((days > 0)|| (days < 3)){
+//                    holder.mCountingTextView.setTextColor(Color.YELLOW);
+//                }else if((days == 0) ||(minutes >= 0) ||(hours >= 0)){
+//                    holder.mCountingTextView.setTextColor(Color.RED);
+//                }else if((hours < 0) && (minutes <0)) {
+//                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
+//
+//                }
 
-                }else if((days > 0)|| (days < 3)){
-                    holder.mCountingTextView.setTextColor(Color.YELLOW);
-                }else if((days == 0) ||(minutes >= 0) ||(hours >= 0)){
-                    holder.mCountingTextView.setTextColor(Color.RED);
-                }else if((hours < 0) && (minutes <0)) {
-                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
 
-                }
-
-
+                holder.mCountingTextView.setTextColor(Color.BLACK);
 
 
                 String dueTimeToShow;
