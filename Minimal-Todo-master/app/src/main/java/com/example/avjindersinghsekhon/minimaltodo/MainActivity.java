@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import org.json.JSONException;
 
@@ -383,13 +382,14 @@ public class MainActivity extends AppCompatActivity {
                 less than seven days and more than three days to yellow
                 less tha three days is red.
 
-                !!!!!!!!!will set random color to the list view!!!!!--------
+                will set random color to the head of item
+                todo: since color is a attr of item, we can set a gray color at first
                  */
                 // @moss comments this color out, accordingly
-                int color = ColorGenerator.MATERIAL.getRandomColor();
+                // int color = ColorGenerator.MATERIAL.getRandomColor();
 
-                //set the
-                item.setTodoColor(color);
+                //@moss set the color to gray when the item is just generated
+                item.setTodoColor(Color.LTGRAY);
                 //noinspection ResourceType
 //                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);
@@ -868,42 +868,11 @@ public class MainActivity extends AppCompatActivity {
                 long hours = (timeSpan - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
                 long minutes = (timeSpan - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
 
-//                if((minutes <0) && (hours <0) && (days <=0)){
-//                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
-//                }else if(days <1){
-//                    holder.mCountingTextView.setTextColor(Color.RED);
-//                }else if(days <3){
-//                    holder.mCountingTextView.setTextColor(Color.YELLOW);
-//                }else{
-//                    holder.mCountingTextView.setTextColor(Color.GREEN);
-//
-//                }
-
-                /*
-                @moss
-                I comment it out for the backGroundColor is not I need
-                it's the square area not the circle part
-//                holder.mColorImageView.setBackgroundColor(Color.GREEN);
-
-                 */
-//                if(days>=3){
-//                    holder.mCountingTextView.setTextColor(Color.GREEN);
-//
-//                }else if((days > 0)|| (days < 3)){
-//                    holder.mCountingTextView.setTextColor(Color.YELLOW);
-//                }else if((days == 0) ||(minutes >= 0) ||(hours >= 0)){
-//                    holder.mCountingTextView.setTextColor(Color.RED);
-//                }else if((hours < 0) && (minutes <0)) {
-//                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
-//
-//                }
-
-
                 holder.mCountingTextView.setTextColor(Color.BLACK);
 
 
                 String dueTimeToShow;
-                String countingTimeToShow= days+" D, "+hours+" H, " +minutes+ " min left";
+                String countingTimeToShow= days+" d, "+hours+" h, " +minutes+ " m";
 
 
                 if(android.text.format.DateFormat.is24HourFormat(MainActivity.this)){
@@ -921,7 +890,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*
         @moss
-        this method is a getter, to get the size of the items
+        this method is a getter, to get the size of the todoArrayList
          */
         @Override
         public int getItemCount() {

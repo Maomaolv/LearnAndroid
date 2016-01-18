@@ -133,16 +133,28 @@ public class ToDoItem implements Serializable{
 this method a getter of todoColor
 if
  */
-    public int getTodoColor() {
+     public int getTodoColor() {
 
 
-        Date curDate = Calendar.getInstance().getTime();
-        Long timeSpan = this.getToDoDate().getTime() - curDate.getTime();
 
-        if(timeSpan < 0 ){
-            this.mTodoColor = Color.LTGRAY;
-        }else if(timeSpan >1000 * 60*60*24*3){
-            this.mTodoColor = Color.GREEN;
+        if (mToDoDate != null) {
+
+            Date curDate = Calendar.getInstance().getTime();
+            Long timeSpan = this.mToDoDate.getTime() - curDate.getTime();
+
+
+            if(timeSpan >= 1000 * 60 * 60 * 24 * 3){
+                this.mTodoColor = Color.GREEN;
+            }else if(timeSpan >=1000 * 60 * 60 * 24  ){
+                this.mTodoColor = Color.YELLOW;
+            }
+            else if(timeSpan > 1){
+                this.mTodoColor = Color.RED;
+            }else{
+                this.mTodoColor = Color.GRAY;
+            }
+
+
         }
 
         return mTodoColor;
