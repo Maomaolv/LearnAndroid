@@ -86,7 +86,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         ImageButton reminderIconImageButton;
         TextView reminderRemindMeTextView;
 
-        //@lv 确定light还是dark主题
+        //@lv light theme or dark theme
         theme = getSharedPreferences(MainActivity.THEME_PREFERENCES, MODE_PRIVATE).getString(MainActivity.THEME_SAVED, MainActivity.LIGHTTHEME);
         if(theme.equals(MainActivity.LIGHTTHEME)){
             setTheme(R.style.CustomStyle_LightTheme);
@@ -102,7 +102,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         setContentView(R.layout.activity_todo_test);
 
         //Show an X in place of <-
-        //@lv 叉子图案参数
+        //@lv init cross
         final Drawable cross = getResources().getDrawable(R.drawable.ic_clear_white_24dp);
         if(cross !=null){
             //@lv PorterDuff.Mode.SRC_ATOP,取下层非交集部分与上层交集部分
