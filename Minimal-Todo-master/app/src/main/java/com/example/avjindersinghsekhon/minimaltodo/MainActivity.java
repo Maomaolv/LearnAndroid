@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import org.json.JSONException;
 
@@ -385,10 +386,10 @@ public class MainActivity extends AppCompatActivity {
                 !!!!!!!!!will set random color to the list view!!!!!--------
                  */
                 // @moss comments this color out, accordingly
-//                int color = ColorGenerator.MATERIAL.getRandomColor();
+                int color = ColorGenerator.MATERIAL.getRandomColor();
 
                 //set the
-//                item.setTodoColor(Color.LTGRAY);
+                item.setTodoColor(color);
                 //noinspection ResourceType
 //                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);
@@ -878,14 +879,21 @@ public class MainActivity extends AppCompatActivity {
 //
 //                }
 
-                if(days>3){
+                /*
+                @moss
+                I comment it out for the backGroundColor is not I need
+                it's the square area not the circle part
+//                holder.mColorImageView.setBackgroundColor(Color.GREEN);
+
+                 */
+                if(days>=3){
                     holder.mCountingTextView.setTextColor(Color.GREEN);
 
-                }else if(days>1){
+                }else if((days > 0)|| (days < 3)){
                     holder.mCountingTextView.setTextColor(Color.YELLOW);
-                }else if((days < 1) || (days >-1l)||(minutes >= 0) ||(hours >= 0)){
+                }else if((days == 0) ||(minutes >= 0) ||(hours >= 0)){
                     holder.mCountingTextView.setTextColor(Color.RED);
-                }else {
+                }else if((hours < 0) && (minutes <0)) {
                     holder.mCountingTextView.setTextColor(Color.LTGRAY);
 
                 }
@@ -894,7 +902,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 String dueTimeToShow;
-                String countingTimeToShow= days+" D, "+hours+" H, " +minutes+ " m left";
+                String countingTimeToShow= days+" D, "+hours+" H, " +minutes+ " min left";
 
 
                 if(android.text.format.DateFormat.is24HourFormat(MainActivity.this)){
