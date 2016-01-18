@@ -663,8 +663,6 @@ public class MainActivity extends AppCompatActivity {
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
 
-//        item.setTodoColor(Color.LTGRAY);
-
         /*
         @moss
         this method is for moving items from one position to another
@@ -856,7 +854,7 @@ public class MainActivity extends AppCompatActivity {
             @moss
             if any item has a data, make its format to 24hour
             otherwise, make it to 12hour format
-            todo:here is the place i should place the CountingDateTextView, I guess
+            todo:here is the place i shold place the CountingDateTextView, I guess
              */
 
             if(item.getToDoDate()!=null){
@@ -880,19 +878,15 @@ public class MainActivity extends AppCompatActivity {
 //
 //                }
 
-                /*
-                @moss comments it out
-                since this code is to change the color the countingDateTextview
-                however, what I should change is the color of imageView's background.
-                 */
-                if(timeSpan < 0){
-                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
-                }else if((timeSpan>0)||(timeSpan<1000*60*60*1)){
-                    holder.mCountingTextView.setTextColor(Color.RED);
-                }else if((timeSpan > 1000*60*60*1)|| (timeSpan < 1000*60*60*3)){
-                    holder.mCountingTextView.setTextColor(Color.YELLOW);
-                }else {
+                if(days>3){
                     holder.mCountingTextView.setTextColor(Color.GREEN);
+
+                }else if(days>1){
+                    holder.mCountingTextView.setTextColor(Color.YELLOW);
+                }else if((days < 1) || (days >-1l)||(minutes >= 0) ||(hours >= 0)){
+                    holder.mCountingTextView.setTextColor(Color.RED);
+                }else {
+                    holder.mCountingTextView.setTextColor(Color.LTGRAY);
 
                 }
 
