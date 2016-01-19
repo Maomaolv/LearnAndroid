@@ -21,14 +21,11 @@ public class AboutActivity extends AppCompatActivity {
     private TextView contactMe;
     String theme;
 
-    //test with git
-//    private UUID mId;
-    private AnalyticsApplication app;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        app = (AnalyticsApplication)getApplication();
-        app.send(this);
+
 
         /*
         @moss
@@ -96,7 +93,7 @@ public class AboutActivity extends AppCompatActivity {
         contactMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                app.send(this, "Action", "Feedback");
+                // todo: sent me an email...
             }
         });
 

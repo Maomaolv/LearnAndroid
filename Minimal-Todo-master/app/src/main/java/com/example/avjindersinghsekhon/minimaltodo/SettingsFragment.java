@@ -39,14 +39,12 @@ OnSharedPreferenceChangeListener是Android中SharedPreference文件发生变化�
  */
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
-//    AnalyticsApplication app;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences_layout);
-//        app = (AnalyticsApplication) getActivity().getApplication();
    }
 
     /*

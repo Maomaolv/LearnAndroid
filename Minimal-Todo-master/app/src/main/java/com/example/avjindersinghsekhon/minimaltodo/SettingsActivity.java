@@ -17,7 +17,6 @@ now, only has the function of change theme
  */
 public class SettingsActivity extends AppCompatActivity{
 
-//    AnalyticsApplication app;
     @Override
     protected void onResume() {
         super.onResume();
@@ -27,8 +26,6 @@ public class SettingsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//        app = (AnalyticsApplication)getApplication();
-        //@lv new theme
         /*
         @moss
         get the saved theme of this app

@@ -36,16 +36,13 @@ import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    //实现 下拉刷新和自动加载
+
     private RecyclerViewEmptySupport mRecyclerView;
 
-    // 悬浮的“＋” 按钮，称为fab，是material design 的一个特色
     private FloatingActionButton mAddToDoItemFAB;
 
-    //todolist
     private ArrayList<ToDoItem> mToDoItemsArrayList;
 
-    //CoordinatorLayout 实现了多种Material Design中提到的滚动效果。
     private CoordinatorLayout mCoordLayout;
 
     public static final String TODOITEM = "com.example.approaching";
@@ -63,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public int fab_color;
     private StoreRetrieveData storeRetrieveData;
 
-    /*ItemTouchHelper是一个强大的工具，它处理好了关于在RecyclerView上添加拖动排序与滑动删除的所有事情。
-    它是RecyclerView.ItemDecoration的子类，也就是说它可以轻易的添加到几乎所有的LayoutManager和Adapter中。
-    它还可以和现有的item动画一起工作，提供受类型限制的拖放动画等等，
-     */
+
     public ItemTouchHelper itemTouchHelper;
     private CustomRecyclerScrollViewListener customRecyclerScrollViewListener;
     public static final String SHARED_PREF_DATA_SET_CHANGED = "com.example.approaching.datasetchanged";
@@ -78,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String THEME_SAVED = "com.example.approaching.savedtheme";
     public static final String DARKTHEME = "com.example.approaching.darktheme";
     public static final String LIGHTTHEME = "com.example.approaching.lighttheme";
-    //    private AnalyticsApplication app;
     private String[] testStrings = {"Clean my room",
             "Water the plants",
             "Get car washed",
@@ -123,18 +116,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //the author is tracking this app
-//        app.send(this);
 
-        /*
-        @moss
-        SharedPreferences的使用非常简单，能够轻松的存放数据和读取数据。
-        SharedPreferences只能保存简单类型的数据，例如，String、int等。
-        一般会将复杂类型的数据转换成Base64编码，
-        然后将转换后的数据以字符串的形式保存在 XML文件中，再用SharedPreferences保存。
-
-        使用SharedPreferences保存key-value对的步骤如下：
-         */
 
         /*
         （1）使用Activity类的getSharedPreferences方法获得SharedPreferences对象，
@@ -184,8 +166,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
 
-        //this code is for author to track this app using google analysis
-//        app = (AnalyticsApplication)getApplication();
         super.onStart();
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
         if(sharedPreferences.getBoolean(CHANGE_OCCURED, false)){
@@ -265,9 +245,6 @@ public class MainActivity extends AppCompatActivity {
         last, set CustomRecyclerScrollViewListener to the recycle list view
 
         */
-//        app = (AnalyticsApplication)getApplication();
-//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-//                .setDefaultFontPath("fonts/Aller_Regular.tff").setFontAttrId(R.attr.fontPath).build());
 
         //We recover the theme we've set and setTheme accordingly
         theme = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getString(THEME_SAVED, LIGHTTHEME);

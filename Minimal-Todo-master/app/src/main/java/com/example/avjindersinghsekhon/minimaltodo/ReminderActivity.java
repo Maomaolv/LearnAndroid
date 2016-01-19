@@ -47,8 +47,6 @@ public class ReminderActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-//        app = (AnalyticsApplication)getApplication();
-//        app.send(this);
 
         /*
         @moss
