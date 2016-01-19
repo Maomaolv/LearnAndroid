@@ -1,6 +1,5 @@
 package com.example.avjindersinghsekhon.minimaltodo;
 
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -47,9 +46,6 @@ public class AboutActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
-        
-        Intent i = getIntent();
-//        mId = (UUID)i.getSerializableExtra(TodoNotificationService.TODOUUID);
 
         final Drawable backArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         if(backArrow!=null){

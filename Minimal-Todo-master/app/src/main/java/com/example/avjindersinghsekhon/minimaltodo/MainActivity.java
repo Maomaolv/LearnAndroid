@@ -119,29 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         /*
-        （1）使用Activity类的getSharedPreferences方法获得SharedPreferences对象，
-            其中存储key-value的文件的名称由getSharedPreferences方法的第一个参数指定。
-         */
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
-
-        if(sharedPreferences.getBoolean(ReminderActivity.EXIT, false)){
-
-            /*
-            （2）使用SharedPreferences接口的edit获得SharedPreferences.Editor对象。
-             */
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            /*
-            （3）通过SharedPreferences.Editor接口的putXxx方法保存key-value对。
-            其中Xxx表示不同的数据类型。例如：字符串类型的value需要用putString方法。
-             */
-            editor.putBoolean(ReminderActivity.EXIT,false);
-            /*
-            (4)通过SharedPreferences.Editor接口的commit方法保存key-value对。commit方法相当于数据库事务中的提交（commit）操作。
-             */
-            editor.apply();
-            finish();
-        }
-        /*
         @author
         We need to do this, as this activity's onCreate won't be called when coming back from SettingsActivity,
         thus our changes to dark/light mode won't take place, as the setContentView() is not called again.
@@ -150,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
         Note: the recreate_key's value is changed to false before calling recreate(), or we would have ended up in an infinite loop,
         as onResume() will be called on recreation, which will again call recreate() and so on....
-        and get an ANR
 
          */
         if(getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE).getBoolean(RECREATE_ACTIVITY, false)){
@@ -200,35 +176,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    @moss comments this method out
-    set Alarms to a to do item
-     */
-//    private void setAlarms(){
-//        /*@moss
-//        first, check the to do item ArrayList, if it's not null
-//        iterate this ArrayList,
-//        if any item has a reminder or item has a to do date
-//        check the to do date
-//        if the date has passed, do nothing and continue
-//        otherwise:
-//        new an intent, to set the alarm
-//         */
-//        if(mToDoItemsArrayList!=null){
-//            for(ToDoItem item : mToDoItemsArrayList){
-//                if(item.hasDueTime() && item.getToDoDate()!=null){
-//                    if(item.getToDoDate().before(new Date())){
-//                        item.setToDoDate(null);
-//                        continue;
-//                    }
-//                    Intent i = new Intent(this, TodoNotificationService.class);
-//                    i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
-//                    i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
-//                    createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-//                }
-//            }
-//        }
-//    }
 
     protected void onCreate(Bundle savedInstanceState) {
 

@@ -40,10 +40,9 @@ public class ReminderActivity extends AppCompatActivity{
     private StoreRetrieveData storeRetrieveData;
     private ArrayList<ToDoItem> mToDoItems;
     private ToDoItem mItem;
-    public static final String EXIT = "com.avjindersekhon.exit";
+    public static final String EXIT = "com.example.approaching.exit";
     private TextView mSnoozeTextView;
     String theme;
-//    AnalyticsApplication app;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
