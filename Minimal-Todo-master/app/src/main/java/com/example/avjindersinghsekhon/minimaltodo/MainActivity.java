@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String FILENAME = "todoitems.json";
     public static final int ICON_RED = 0xffe91e63;
     public static final int ICON_GREEN = 0xff00bfa5;
+    public int fab_color;
     private StoreRetrieveData storeRetrieveData;
 
     /*ItemTouchHelper是一个强大的工具，它处理好了关于在RecyclerView上添加拖动排序与滑动删除的所有事情。
@@ -356,6 +357,8 @@ public class MainActivity extends AppCompatActivity {
          */
         mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
         mAddToDoItemFAB = (FloatingActionButton)findViewById(R.id.addToDoItemFAB);
+
+        fab_color = mAddToDoItemFAB.getDrawingCacheBackgroundColor();
         mAddToDoItemFAB.setOnClickListener(new View.OnClickListener() {
 
             @SuppressWarnings("deprecation")
@@ -506,28 +509,6 @@ public class MainActivity extends AppCompatActivity {
         return pi!=null;
     }
 
-    /*
-    moss comments it out
-     */
-//    private void createAlarm(Intent i, int requestCode, long timeInMillis){
-//        AlarmManager alarmManager = getAlarmManager();
-//        PendingIntent pendingIntent = PendingIntent.getService(this, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-////        Log.d("OskarSchindler", "createAlarm "+requestCode+" time: "+timeInMillis+" PI "+pendingIntent.toString());
-//    }
-
-    /*
-    moss comments it out
-     */
-//    private void deleteAlarm(Intent i, int requestCode){
-//        if(doesPendingIntentExist(i, requestCode)){
-//            PendingIntent pendingIntent = PendingIntent.getService(this, requestCode,i, PendingIntent.FLAG_NO_CREATE);
-//            pendingIntent.cancel();
-//            getAlarmManager().cancel(pendingIntent);
-//            Log.d("OskarSchindler", "PI Cancelled " + doesPendingIntentExist(i, requestCode));
-//        }
-//    }
-
 
     /*
     @moss
@@ -589,7 +570,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemRemoved(final int position) {
             //Remove this line if not using Google Analytics
-//            app.send(this, "Action", "Swiped Todo Away");
+//            app.send(this, "Action", "Swiped To do Away");
 
             /*
             @moss
@@ -610,11 +591,11 @@ public class MainActivity extends AppCompatActivity {
 
             /*
             @moss
-            notifyItemRemoved()和 notifyItemMoved()的调用非常重要，有了它们Adapter才能知道发生了改变。
-             */
+            to tell Adapter that something is changed
+            */
             notifyItemRemoved(position);
 
-//            String toShow = (mJustDeletedToDoItem.getToDoText().length()>20)?mJustDeletedToDoItem.getToDoText().substring(0, 20)+"...":mJustDeletedToDoItem.getToDoText();
+
             String toShow = "Todo";
             Snackbar.make(mCoordLayout, "Deleted "+toShow,Snackbar.LENGTH_SHORT)
                     .setAction("UNDO", new View.OnClickListener() {
@@ -664,6 +645,8 @@ public class MainActivity extends AppCompatActivity {
 //                item.setToDoDate(null);
 //            }
 
+            //todo: change the todo color to the color of FAB
+
             /*
             @moss
             if this app is using Light theme, then set the background color to white and text color to white
@@ -676,6 +659,7 @@ public class MainActivity extends AppCompatActivity {
             int todoTextColor;
             if(sharedPreferences.getString(THEME_SAVED, LIGHTTHEME).equals(LIGHTTHEME)){
                 bgColor = Color.WHITE;
+//                todoTextColor = fab_color;
                 todoTextColor = getResources().getColor(R.color.secondary_text);
             }
             else{
@@ -696,7 +680,6 @@ public class MainActivity extends AppCompatActivity {
                 holder.mToDoTextview.setMaxLines(1);
                 holder.mTimeTextView.setVisibility(View.VISIBLE);
                 holder.mCountingTextView.setVisibility(View.VISIBLE);
-//                holder.mToDoTextview.setVisibility(View.GONE);
             }
             else{
                 holder.mCountingTextView.setVisibility(View.GONE);
@@ -777,8 +760,14 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     dueTimeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
                 }
+
+                //set text to 
                 holder.mTimeTextView.setText(dueTimeToShow);
                 holder.mCountingTextView.setText(countingTimeToShow);
+
+
+                holder.mCountingTextView.setTextColor(item.getTodoColor());
+                holder.mTimeTextView.setTextColor(todoTextColor);
             }
 
 
