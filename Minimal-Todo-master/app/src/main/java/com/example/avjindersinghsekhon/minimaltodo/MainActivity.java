@@ -191,8 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
             /*
             @moss
-            getLocallyStoredData() is the method that created above,
-            used to fetch data from the jason file
+            getLocallyStoredData() is the method used to fetch data from the jason file
             it returns an ArrayList, type is todoitem
              */
             mToDoItemsArrayList = getLocallyStoredData(storeRetrieveData);
@@ -292,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*
         @moss
-        FILENAME is from: public static final String FILENAME = "todoitems.json"
+        FILENAME = "todoitems.json"
         us this name and this activity to initialize a StoreRetrieveData object
         we already have a getLocallyStoredData() method in this class
         put the this activity as param to get the ArrayList data from the FileName.json
@@ -352,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*
         @moss
-        get the layout and fab
+        get the layout and fab from R file
         then,set onClickListener to the fab
          */
         mCoordLayout = (CoordinatorLayout)findViewById(R.id.myCoordinatorLayout);
@@ -362,77 +361,28 @@ public class MainActivity extends AppCompatActivity {
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
-//                app.send(this, "Action", "FAB pressed");
                 /*
                 @moss
                 if the fab is clicked, an intend will be triggered, to start the AddToDoActivity
+                and click the FAB will generate a new default TodoItem
                  */
                 Intent newTodo = new Intent(MainActivity.this, AddToDoActivity.class);
-
-                /*
-                @moss
-                click the FAB will generate a new empty TodoItem
-                 */
                 ToDoItem item = new ToDoItem("", false, null);
-
-                /*
-                @moss
-                 it's setting color to the circle view in the left of item
-                according to the logic:
-                if the time is not set yet, the color will be gray
-                if the time is set, if the time is more than seven days, set to green
-                less than seven days and more than three days to yellow
-                less tha three days is red.
-
-                will set random color to the head of item
-                todo: since color is a attr of item, we can set a gray color at first
-                 */
-                // @moss comments this color out, accordingly
-                // int color = ColorGenerator.MATERIAL.getRandomColor();
 
                 //@moss set the color to gray when the item is just generated
                 item.setTodoColor(Color.LTGRAY);
-                //noinspection ResourceType
-//                String color = getResources().getString(R.color.primary_ligher);
                 newTodo.putExtra(TODOITEM, item);
-//                View decorView = getWindow().getDecorView();
-//                View navView= decorView.findViewById(android.R.id.navigationBarBackground);
-//                View statusView = decorView.findViewById(android.R.id.statusBarBackground);
-//                Pair<View, String> navBar ;
-//                if(navView!=null){
-//                    navBar = Pair.create(navView, navView.getTransitionName());
-//                }
-//                else{
-//                    navBar = null;
-//                ActivityOptions options;
-//                }
-//                Pair<View, String> statusBar= Pair.create(statusView, statusView.getTransitionName());
-//                if(navBar!=null){
-//                    options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, navBar, statusBar);
-//                }
-//                else{
-//                    options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, statusBar);
-//                }
-
-//                startActivity(new Intent(MainActivity.this, TestLayout.class), options.toBundle());
-//                startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM, options.toBundle());
-
+//
                 /*
                 @moss
-                Activity跳转,需要返回数据或结果的，则使用startActivityForResult (Intent intent, int requestCode)
-                requestCode的值是自定义的，用于识别跳转的目标Activity。
-                跳转的目标Activity所要做的就是返回数据/结果
-                setResult(int resultCode)只返回结果不带数据，或者setResult(int resultCode, Intent data)两者都返回！
-                而接收返回的数据/结果的处理函数是onActivityResult(int requestCode, int resultCode, Intent data)，
-                这里的requestCode就是startActivityForResult的requestCode，
-                resultCode就是setResult里面的resultCode，返回的数据在data里面。
+                if this activity jump to another activity and need some data come sback
+                then use startActivityForResult (Intent intent, int requestCode)
                 */
                 startActivityForResult(newTodo, REQUEST_ID_TODO_ITEM);
             }
         });
 
 
-//        mRecyclerView = (RecyclerView)findViewById(R.id.toDoRecyclerView);
         mRecyclerView = (RecyclerViewEmptySupport)findViewById(R.id.toDoRecyclerView);
         if(theme.equals(LIGHTTHEME)){
             mRecyclerView.setBackgroundColor(getResources().getColor(R.color.primary_lightest));
@@ -449,15 +399,13 @@ public class MainActivity extends AppCompatActivity {
             public void show() {
 
                 /*
-                Decelerate Interpolator 减速， 插入内容
+                @moss set the animation to show
                  */
                 mAddToDoItemFAB.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-//                mAddToDoItemFAB.animate().translationY(0).setInterpolator(new AccelerateInterpolator(2.0f)).start();
             }
 
             @Override
             public void hide() {
-
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams)mAddToDoItemFAB.getLayoutParams();
                 int fabMargin = lp.bottomMargin;
                 mAddToDoItemFAB.animate().translationY(mAddToDoItemFAB.getHeight()+fabMargin).setInterpolator(new AccelerateInterpolator(2.0f)).start();
@@ -465,30 +413,11 @@ public class MainActivity extends AppCompatActivity {
         };
         mRecyclerView.addOnScrollListener(customRecyclerScrollViewListener);
 
-
         ItemTouchHelper.Callback callback = new ItemTouchHelperClass(adapter);
         itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
-
         mRecyclerView.setAdapter(adapter);
-//        setUpTransitions();
-
-
-
-    }
-
-    /*
-    @moss
-    this is setter method
-    it sets the them to the system xml file
-    by put string to the them_key "THEME_SAVED"
-     */
-    public void addThemeToSharedPreferences(String theme){
-        SharedPreferences sharedPreferences = getSharedPreferences(THEME_PREFERENCES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(THEME_SAVED, theme);
-        editor.apply();
     }
 
     /*@moss
@@ -504,11 +433,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     @moss
     in the options menu, there are two items: about and setting
-    if clicks the about item, a new intent will be triggered
-    and start an AboutActivity.class
-
-    if clicked the setting item, a new intent will be triggered
-    and start an SettingsActivity.class
+    click each of them can trigger an intent and jump to the corresponding activity
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -517,22 +442,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(this, AboutActivity.class);
                 startActivity(i);
                 return true;
-//            case R.id.switch_themes:
-//                if(mTheme == R.style.CustomStyle_DarkTheme){
-//                    addThemeToSharedPreferences(LIGHTTHEME);
-//                }
-//                else{
-//                    addThemeToSharedPreferences(DARKTHEME);
-//                }
-//
-////                if(mTheme == R.style.CustomStyle_DarkTheme){
-////                    mTheme = R.style.CustomStyle_LightTheme;
-////                }
-////                else{
-////                    mTheme = R.style.CustomStyle_DarkTheme;
-////                }
-//                this.recreate();
-//                return true;
             case R.id.preferences:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
@@ -542,6 +451,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     /*
     in the onCreate method, there was a method named "startActivityForResult"
     which indicates that some data have to be returned to the mainActivity
@@ -551,11 +461,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         /*
         @moss
-        在运行过程中，发现按Back键后，是可以返回RESULT_CANCELED的，而且不带有数据的。
-        这意味着，如果你设想在返回RESULT_CANCELED时并返回数据，
-        那么需要截获Back键的事件处理，把原来返回RESULT_CANCELED的核心逻辑copy到事件处理里面。
-
-        REQUEST_ID_TODO_ITEM 是上面已经定义好的int，在onclick 的时候发给下一个class 的int
+        when user click the back button, return data
          */
         if(resultCode!= RESULT_CANCELED && requestCode == REQUEST_ID_TODO_ITEM){
             ToDoItem item =(ToDoItem) data.getSerializableExtra(TODOITEM);
@@ -566,19 +472,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             /*
-            @moss   comments it out
-            if the data that returned from the "AddToDoActivity.class" has a reminder or data
-            will trigger a alarm system service
-             */
-//            if(item.hasReminder() && item.getToDoDate()!=null){
-//                Intent i = new Intent(this, TodoNotificationService.class);
-//                i.putExtra(TodoNotificationService.TODOTEXT, item.getToDoText());
-//                i.putExtra(TodoNotificationService.TODOUUID, item.getIdentifier());
-//                createAlarm(i, item.getIdentifier().hashCode(), item.getToDoDate().getTime());
-////                Log.d("OskarSchindler", "Alarm Created: "+item.getToDoText()+" at "+item.getToDoDate());
-//            }
-
-            /*
             @moss
             getIdentifier()方法可以方便的获各应用包下的指定资源ID。
              */
@@ -586,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
                 if(item.getIdentifier().equals(mToDoItemsArrayList.get(i).getIdentifier())){
                     mToDoItemsArrayList.set(i, item);
                     existed = true;
-                    adapter.notifyDataSetChanged();
+//                    adapter.notifyDataSetChanged();
                     break;
                 }
             }
