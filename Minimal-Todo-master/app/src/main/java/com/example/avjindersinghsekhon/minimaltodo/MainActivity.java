@@ -761,7 +761,7 @@ public class MainActivity extends AppCompatActivity {
                     dueTimeToShow = AddToDoActivity.formatDate(MainActivity.DATE_TIME_FORMAT_12_HOUR, item.getToDoDate());
                 }
 
-                //set text to 
+                //set text to
                 holder.mTimeTextView.setText(dueTimeToShow);
                 holder.mCountingTextView.setText(countingTimeToShow);
 
