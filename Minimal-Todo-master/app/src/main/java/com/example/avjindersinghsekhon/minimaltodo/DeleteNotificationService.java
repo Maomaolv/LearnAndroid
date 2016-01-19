@@ -2,7 +2,6 @@ package com.example.avjindersinghsekhon.minimaltodo;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 
@@ -37,44 +36,9 @@ public class DeleteNotificationService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-//        storeRetrieveData = new StoreRetrieveData(this, MainActivity.FILENAME);
-//
-//        /*
-//        @moss
-//        UUID是Universally Unique Identifier的缩写，它是在一定的范围内（从特定的名字空间到全球）唯一的机器生成的标识符。
-//        UUID具有以下涵义：经由一定的算法机器生成,非人工指定，非人工识别,在特定的范围内重复的可能性极小
-//        UUID是16字节128位长的数字，通常以36字节的字符串表示
-//         */
-//        UUID todoID = (UUID)intent.getSerializableExtra(TodoNotificationService.TODOUUID);
-//
-//        /*@moss
-//        loadData() will return storeRetrieveData.loadFromFile();
-//         */
-//        mToDoItems = loadData();
-//        if(mToDoItems!=null){
-//            for(ToDoItem item : mToDoItems){
-//                if(item.getIdentifier().equals(todoID)){
-//                    mItem = item;
-//                    break;
-//                }
-//            }
-//
-//            if(mItem!=null){
-//                mToDoItems.remove(mItem);
-//                dataChanged();
-//                saveData();
-//            }
-//
-//        }
 
     }
 
-    private void dataChanged(){
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREF_DATA_SET_CHANGED, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(MainActivity.CHANGE_OCCURED, true);
-        editor.apply();
-    }
 
     private void saveData(){
         try{

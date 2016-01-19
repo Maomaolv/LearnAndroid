@@ -202,17 +202,6 @@ public class ReminderActivity extends AppCompatActivity{
         }
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        try{
-//            storeRetrieveData.saveToFile(mToDoItems);
-//        }
-//        catch (JSONException | IOException e){
-//            e.printStackTrace();
-//        }
-//    }
-
 
     /*
     @moss
@@ -230,11 +219,6 @@ public class ReminderActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        try{
-//            storeRetrieveData.saveToFile(mToDoItems);
-//        }
-//        catch (JSONException | IOException e){
-//            e.printStackTrace();
-//        }
+
     }
 }
