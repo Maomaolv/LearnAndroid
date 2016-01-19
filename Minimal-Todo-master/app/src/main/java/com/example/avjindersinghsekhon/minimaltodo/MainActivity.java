@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         @moss
         FILENAME = "todoitems.json"
-        us this name and this activity to initialize a StoreRetrieveData object
+        use this file and this activity to initialize a StoreRetrieveData object
         we already have a getLocallyStoredData() method in this class
         put the this activity as param to get the ArrayList data from the FileName.json
         then, set List Adapter to this ArrayList
@@ -305,35 +305,7 @@ public class MainActivity extends AppCompatActivity {
         storeRetrieveData = new StoreRetrieveData(this, FILENAME);
         mToDoItemsArrayList =  getLocallyStoredData(storeRetrieveData);
         adapter = new BasicListAdapter(mToDoItemsArrayList);
-//        setAlarms();
 
-
-//        adapter.notifyDataSetChanged();
-//        storeRetrieveData = new StoreRetrieveData(this, FILENAME);
-//
-//        try {
-//            mToDoItemsArrayList = storeRetrieveData.loadFromFile();
-////            Log.d("OskarSchindler", "Arraylist Length: "+mToDoItemsArrayList.size());
-//        } catch (IOException | JSONException e) {
-////            Log.d("OskarSchindler", "IOException received");
-//            e.printStackTrace();
-//        }
-//
-//        if(mToDoItemsArrayList==null){
-//            mToDoItemsArrayList = new ArrayList<>();
-//        }
-//
-
-//        mToDoItemsArrayList = new ArrayList<>();
-//        makeUpItems(mToDoItemsArrayList, testStrings.length);
-
-        /*
-        @moss
-        Toolbar其实是一个ActionBar的变体，大大扩展了Actionbar。
-        我们可以像对待一个独立控件一样去使用ToolBar，
-        可以将它放到屏幕的任何位置，不必拘泥于顶部，
-        还可以将它改变高度或者是在ToolBar上使用动画。
-         */
         final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -495,14 +467,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    @moss comments it out
-    在特定的时刻为我们广播一个指定的Intent。
-    简单的说就是我们设定一个时间，然后在该时间到来时，AlarmManager为我们广播一个我们设定的Intent。
-     */
-//    private AlarmManager getAlarmManager(){
-//        return (AlarmManager)getSystemService(ALARM_SERVICE);
-//    }
 
     private boolean doesPendingIntentExist(Intent i, int requestCode){
         PendingIntent pi = PendingIntent.getService(this,requestCode, i, PendingIntent.FLAG_NO_CREATE);
@@ -512,14 +476,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*
     @moss
-    RecyclerView 还带来了一个新特性：列表项动画（Item Animation）。
-    同时自带了一个动画器是 DefaultItemAnimator，大致上的效果就是挤开前后的列表项然后淡入（反之亦然）。
-    notifyItemInserted(position) - 有一个新项插入到了 position 位置
-    notifyItemRangeInserted(position, count) - 在 position 位置插入了 count 个新项目
-    notifyItemRemoved(position)
-    notifyItemRangeRemoved(position, count)
-    notifyItemChanged(position)
-    notifyItemMoved(from, to)
+    the animation when a new item insert into a list
      */
     private void addToDataStore(ToDoItem item){
         mToDoItemsArrayList.add(item);
@@ -527,16 +484,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void makeUpItems(ArrayList<ToDoItem> items, int len){
-        for (String testString : testStrings) {
-            ToDoItem item = new ToDoItem(testString, false, new Date());
-            //noinspection ResourceType
-//            item.setTodoColor(getResources().getString(R.color.red_secondary));
-            items.add(item);
-        }
-
-    }
 
     public class BasicListAdapter extends RecyclerView.Adapter<BasicListAdapter.ViewHolder> implements ItemTouchHelperClass.ItemTouchHelperAdapter{
         private ArrayList<ToDoItem> items;
@@ -548,10 +495,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemMoved(int fromPosition, int toPosition) {
 
-            /*
-            @moss
-            貌似是从上往下
-             */
            if(fromPosition<toPosition){
 
                for(int i=fromPosition; i<toPosition; i++){
@@ -569,8 +512,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemRemoved(final int position) {
-            //Remove this line if not using Google Analytics
-//            app.send(this, "Action", "Swiped To do Away");
+
 
             /*
             @moss
@@ -584,15 +526,6 @@ public class MainActivity extends AppCompatActivity {
             mIndexOfDeletedToDoItem = position;
             Intent i = new Intent(MainActivity.this,TodoNotificationService.class);
 
-            /*
-            moss comments this code out
-             */
-//            deleteAlarm(i, mJustDeletedToDoItem.getIdentifier().hashCode());
-
-            /*
-            @moss
-            to tell Adapter that something is changed
-            */
             notifyItemRemoved(position);
 
 
@@ -602,8 +535,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            //Comment the line below if not using Google Analytics
-//                            app.send(this, "Action", "UNDO Pressed");
                             items.add(mIndexOfDeletedToDoItem, mJustDeletedToDoItem);
 
                             /*
@@ -668,14 +599,7 @@ public class MainActivity extends AppCompatActivity {
             }
             holder.linearLayout.setBackgroundColor(bgColor);
 
-            /*
-            @moss
-            if this item has a reminder of to do date
-            set the to do list to just one line, because it has to give space to other textViews
-            otherwise, set the to do list to 3 lines and hence no space left for other TextViews
-            text of items are from: item.getToDoText()
-            text color is from todoTextColor
-             */
+
             if(item.hasDueTime() && item.getToDoDate()!=null){
                 holder.mToDoTextview.setMaxLines(1);
                 holder.mTimeTextView.setVisibility(View.VISIBLE);
@@ -684,42 +608,17 @@ public class MainActivity extends AppCompatActivity {
             else{
                 holder.mCountingTextView.setVisibility(View.GONE);
                 holder.mTimeTextView.setVisibility(View.GONE);
-                holder.mToDoTextview.setMaxLines(3);
+                holder.mToDoTextview.setMaxLines(1);
             }
             holder.mToDoTextview.setText(item.getToDoText());
             holder.mToDoTextview.setTextColor(todoTextColor);
-//            holder.mColorTextView.setBackgroundColor(Color.parseColor(item.getTodoColor()));
-
-//            TextDrawable myDrawable = TextDrawable.builder().buildRoundRect(item.getToDoText().substring(0,1),Color.RED, 10);
-            //We check if holder.color is set or not
-//            if(item.getTodoColor() == null){
-//                ColorGenerator generator = ColorGenerator.MATERIAL;
-//                int color = generator.getRandomColor();
-//                item.setTodoColor(color+"");
-//            }
-//            Log.d("OskarSchindler", "Color: "+item.getTodoColor());
 
             /*
             @moss
-            在实际的Android开发中，很多时候，需要用TextView表现和展示view的内容和标题、标签之类。
-            但是Android本身提供的TextView只提供了基础的text表现，比较单调乏味，
-            如果要实现丰富多彩的和ImageView那样的样式和表现能力，则需要自己动手实现或者使用第三方开源库。
-            TextDrawable 就是这样的TextView+ImageView的实现
+            TextDrawable = TextView+ImageView的实现
             简单的说，TextDrawable的目的，是将一个普通的文本变形为一个“文本”的drawable，
-            一旦成为drawable，那么接下来开发者可以自由使用的空间就很大了，
-            比如可以随意的将此drawable作为源设置到ImageView里面等
+             */
 
-            使用TextDrawable之前首先需要到TextDrawable在github上的主页上把该项目的库文件拖下来，
-            然后作为一个Android的lib，在自己的项目中引用。
-             */
-            /*
-            @moss
-            this drawable is the image that in front of each list with a  capital Letter from list
-            we set this letter color to white
-            use default font
-            set it to upper case
-            and use the first letter of the item string
-             */
             TextDrawable myDrawable = TextDrawable.builder().beginConfig()
                     .textColor(Color.WHITE)
                     .useFont(Typeface.DEFAULT)
@@ -727,27 +626,18 @@ public class MainActivity extends AppCompatActivity {
                     .endConfig()
                     .buildRound(item.getToDoText().substring(0,1),item.getTodoColor());
 
-//            TextDrawable myDrawable = TextDrawable.builder().buildRound(item.getToDoText().substring(0,1),holder.color);
             holder.mColorImageView.setImageDrawable(myDrawable);
-
-            /*
-            @moss
-            if any item has a data, make its format to 24hour
-            otherwise, make it to 12hour format
-            todo:here is the place i should place the CountingDateTextView, I guess
-             */
 
             if(item.getToDoDate()!=null){
 
                 Date curDate = Calendar.getInstance().getTime();
                 Long timeSpan = item.getToDoDate().getTime() - curDate.getTime();
 
-
                 long days = timeSpan / (1000 * 60 * 60 * 24);
                 long hours = (timeSpan - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
                 long minutes = (timeSpan - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
 
-                holder.mCountingTextView.setTextColor(Color.BLACK);
+//                holder.mCountingTextView.setTextColor(Color.BLACK);
 
 
                 String dueTimeToShow;
@@ -792,11 +682,6 @@ public class MainActivity extends AppCompatActivity {
             this.items = items;
         }
 
-        /*
-        @moss
-        这个世界的事物总是成对出现。即然有使编译器产生警告信息的，那么就有抑制编译器产生警告信息的。
-        SuppressWarnings注释就是为了这样一个目的而存在的。
-         */
         @SuppressWarnings("deprecation")
         public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -813,13 +698,6 @@ public class MainActivity extends AppCompatActivity {
                 super(v);
                 mView = v;
 
-                /*
-                @moss
-                效果就是： 点击任何一个list， 可以触发 AddToDoActivity。
-                我觉得我们可以去掉这个效果，
-                因为user 可能会误触这个list 而触发修改
-                我们预计的效果是，从右往左滑动，才是修改。
-                 */
                 v.setOnClickListener(new View.OnClickListener() {
 
                     /*
