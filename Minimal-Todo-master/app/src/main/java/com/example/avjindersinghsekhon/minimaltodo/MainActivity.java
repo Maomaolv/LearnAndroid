@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 //         */
 //        if(mToDoItemsArrayList!=null){
 //            for(ToDoItem item : mToDoItemsArrayList){
-//                if(item.hasReminder() && item.getToDoDate()!=null){
+//                if(item.hasDueTime() && item.getToDoDate()!=null){
 //                    if(item.getToDoDate().before(new Date())){
 //                        item.setToDoDate(null);
 //                        continue;
@@ -630,7 +630,7 @@ public class MainActivity extends AppCompatActivity {
                             if the item that just deleted is not null or has a reminder
                             trigger an intent and set alarm for this item
                              */
-                            if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasReminder()){
+                            if(mJustDeletedToDoItem.getToDoDate()!=null && mJustDeletedToDoItem.hasDueTime()){
                                 Intent i = new Intent(MainActivity.this, TodoNotificationService.class);
                                 i.putExtra(TodoNotificationService.TODOTEXT, mJustDeletedToDoItem.getToDoText());
                                 i.putExtra(TodoNotificationService.TODOUUID, mJustDeletedToDoItem.getIdentifier());
@@ -692,7 +692,7 @@ public class MainActivity extends AppCompatActivity {
             text of items are from: item.getToDoText()
             text color is from todoTextColor
              */
-            if(item.hasReminder() && item.getToDoDate()!=null){
+            if(item.hasDueTime() && item.getToDoDate()!=null){
                 holder.mToDoTextview.setMaxLines(1);
                 holder.mTimeTextView.setVisibility(View.VISIBLE);
                 holder.mCountingTextView.setVisibility(View.VISIBLE);

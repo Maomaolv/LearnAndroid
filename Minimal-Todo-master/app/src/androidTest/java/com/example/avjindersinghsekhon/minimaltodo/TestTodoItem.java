@@ -45,7 +45,7 @@ public class TestTodoItem extends TestCase {
     public void testThreeParameterConstructor() {
         ToDoItem toDoItem = getToDoItem(REMINDER_OFF);
         assertEquals(TEXT_BODY, toDoItem.getToDoText());
-        assertEquals(REMINDER_OFF, toDoItem.hasReminder());
+        assertEquals(REMINDER_OFF, toDoItem.hasDueTime());
         assertEquals(CURRENT_DATE, toDoItem.getToDoDate());
     }
 
@@ -77,7 +77,7 @@ public class TestTodoItem extends TestCase {
 
             assertEquals(originalItem.getToDoText(), itemFromJson.getToDoText());
             assertEquals(originalItem.getToDoDate(), itemFromJson.getToDoDate());
-            assertEquals(originalItem.hasReminder(), itemFromJson.hasReminder());
+            assertEquals(originalItem.hasDueTime(), itemFromJson.hasDueTime());
             assertEquals(originalItem.getIdentifier(), itemFromJson.getIdentifier());
 
         } catch (JSONException e) {

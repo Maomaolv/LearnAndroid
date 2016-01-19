@@ -115,7 +115,7 @@ public class ToDoItem implements Serializable{
         this.mToDoText = mToDoText;
     }
 
-    public boolean hasReminder() {
+    public boolean hasDueTime() {
         return mHasReminder;
     }
 

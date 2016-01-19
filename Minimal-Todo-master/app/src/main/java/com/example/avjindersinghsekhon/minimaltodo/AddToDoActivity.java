@@ -142,7 +142,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
 
         mUserToDoItem = (ToDoItem)getIntent().getSerializableExtra(MainActivity.TODOITEM);
         mUserEnteredText = mUserToDoItem.getToDoText();
-        mUserHasReminder = mUserToDoItem.hasReminder();
+        mUserHasReminder = mUserToDoItem.hasDueTime();
         mUserReminderDate = mUserToDoItem.getToDoDate();
         mUserColor = mUserToDoItem.getTodoColor();
 
@@ -464,7 +464,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
      */
     private void setDateAndTimeEditText(){
 
-        if(mUserToDoItem.hasReminder() && mUserReminderDate!=null){
+        if(mUserToDoItem.hasDueTime() && mUserReminderDate!=null){
             String userDate = formatDate("d MMM, yyyy", mUserReminderDate);
             String formatToUse;
             if(DateFormat.is24HourFormat(this)){
