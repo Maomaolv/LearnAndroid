@@ -134,9 +134,6 @@ this method a getter of todoColor
 if
  */
      public int getTodoColor() {
-//         int icon_yellow = 0xffffcc33;
-         int icon_red = 0xffe91e63;
-         int icon_green = 0xff00bfa5;
 
         if (mToDoDate != null) {
 
@@ -145,18 +142,12 @@ if
 
 
             if(timeSpan >= 1000 * 60 * 60 * 24 * 3){
-                this.mTodoColor = icon_green;
-            }
-
-//            else if(timeSpan >=1000 * 60 * 60 * 24  ){
-//                this.mTodoColor = icon_yellow;
-//            }
-            else if(timeSpan > 1){
-                this.mTodoColor = icon_red ;
+                this.mTodoColor = MainActivity.ICON_GREEN;
+            }else if(timeSpan > 1){
+                this.mTodoColor = MainActivity.ICON_RED;
             }else{
                 this.mTodoColor = Color.GRAY;
             }
-
 
         }
 

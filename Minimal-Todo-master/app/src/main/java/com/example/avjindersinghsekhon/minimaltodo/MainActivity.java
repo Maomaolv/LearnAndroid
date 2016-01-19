@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String DATE_TIME_FORMAT_12_HOUR = "MMM d, yyyy  h:mm a";
     public static final String DATE_TIME_FORMAT_24_HOUR = "MMM d, yyyy  k:mm";
     public static final String FILENAME = "todoitems.json";
+    public static final int ICON_RED = 0xffe91e63;
+    public static final int ICON_GREEN = 0xff00bfa5;
     private StoreRetrieveData storeRetrieveData;
 
     /*ItemTouchHelper是一个强大的工具，它处理好了关于在RecyclerView上添加拖动排序与滑动删除的所有事情。
