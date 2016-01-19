@@ -420,6 +420,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(adapter);
     }
 
+
     /*@moss
     will create a options menu when this app just initialized
     the layout of this menu is from R file
@@ -479,7 +480,7 @@ public class MainActivity extends AppCompatActivity {
                 if(item.getIdentifier().equals(mToDoItemsArrayList.get(i).getIdentifier())){
                     mToDoItemsArrayList.set(i, item);
                     existed = true;
-//                    adapter.notifyDataSetChanged();
+                    adapter.notifyDataSetChanged();
                     break;
                 }
             }
