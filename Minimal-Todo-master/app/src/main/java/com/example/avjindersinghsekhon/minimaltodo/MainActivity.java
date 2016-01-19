@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     //CoordinatorLayout 实现了多种Material Design中提到的滚动效果。
     private CoordinatorLayout mCoordLayout;
 
-    public static final String TODOITEM = "com.avjindersinghsekhon.com.avjindersinghsekhon.minimaltodo.MainActivity";
+    public static final String TODOITEM = "com.example.approaching";
 
 
     private BasicListAdapter adapter;
@@ -68,15 +68,15 @@ public class MainActivity extends AppCompatActivity {
      */
     public ItemTouchHelper itemTouchHelper;
     private CustomRecyclerScrollViewListener customRecyclerScrollViewListener;
-    public static final String SHARED_PREF_DATA_SET_CHANGED = "com.avjindersekhon.datasetchanged";
-    public static final String CHANGE_OCCURED = "com.avjinder.changeoccured";
+    public static final String SHARED_PREF_DATA_SET_CHANGED = "com.example.approaching.datasetchanged";
+    public static final String CHANGE_OCCURED = "com.example.approaching.changeoccured";
     private int mTheme = -1;
     private String theme = "name_of_the_theme";
-    public static final String THEME_PREFERENCES = "com.avjindersekhon.themepref";
-    public static final String RECREATE_ACTIVITY = "com.avjindersekhon.recreateactivity";
-    public static final String THEME_SAVED = "com.avjindersekhon.savedtheme";
-    public static final String DARKTHEME = "com.avjindersekon.darktheme";
-    public static final String LIGHTTHEME = "com.avjindersekon.lighttheme";
+    public static final String THEME_PREFERENCES = "com.example.approaching.themepref";
+    public static final String RECREATE_ACTIVITY = "com.example.approaching.recreateactivity";
+    public static final String THEME_SAVED = "com.example.approaching.savedtheme";
+    public static final String DARKTHEME = "com.example.approaching.darktheme";
+    public static final String LIGHTTHEME = "com.example.approaching.lighttheme";
     //    private AnalyticsApplication app;
     private String[] testStrings = {"Clean my room",
             "Water the plants",
