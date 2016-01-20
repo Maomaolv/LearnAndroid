@@ -144,13 +144,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         mUserColor = mUserToDoItem.getTodoColor();
 
 
-//        if(mUserToDoItem.getLastEdited()==null) {
-//            mLastEdited = new Date();
-//        }
-//        else{
-//            mLastEdited = mUserToDoItem.getLastEdited();
-//        }
-
 
         //@lv add reminder页面上的闹钟图标
         reminderIconImageButton = (ImageButton)findViewById(R.id.userToDoReminderIconImageButton);
@@ -379,64 +372,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             }
         });
 
-//        mDefaultTimeOptions12H = new String[]{"9:00 AM", "12:00 PM", "3:00 PM", "6:00 PM", "9:00 PM", "12:00 AM"};
-//        mDefaultTimeOptions24H = new String[]{"9:00", "12:00", "15:00", "18:00", "21:00", "24:00"};
         setDateAndTimeEditText();
-
-//
-
-//        mChooseDateButton = (Button)findViewById(R.id.newToDoChooseDateButton);
-//        mChooseTimeButton = (Button)findViewById(R.id.newToDoChooseTimeButton);
-//
-//        mChooseDateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Date date;
-//                hideKeyboard(mToDoTextBodyEditText);
-//                if(mUserToDoItem.getToDoDate()!=null){
-//                    date = mUserToDoItem.getToDoDate();
-//                }
-//                else{
-//                    date = new Date();
-//                }
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTime(date);
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//
-//                DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(AddToDoActivity.this, year, month, day);
-//                if(theme.equals(MainActivity.DARKTHEME)){
-//                    datePickerDialog.setThemeDark(true);
-//                }
-//                datePickerDialog.show(getFragmentManager(), "DateFragment");
-//            }
-//        });
-//
-//        mChooseTimeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Date date;
-//                hideKeyboard(mToDoTextBodyEditText);
-//                if(mUserToDoItem.getToDoDate()!=null){
-//                    date = mUserToDoItem.getToDoDate();
-//                }
-//                else{
-//                    date = new Date();
-//                }
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.setTime(date);
-//                int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//                int minute = calendar.get(Calendar.MINUTE);
-//
-//                TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(AddToDoActivity.this, hour, minute, DateFormat.is24HourFormat(AddToDoActivity.this));
-//                if(theme.equals(MainActivity.DARKTHEME)){
-//                    timePickerDialog.setThemeDark(true);
-//                }
-//                timePickerDialog.show(getFragmentManager(), "TimeFragment");
-//            }
-//        });
 
     }
     /*
@@ -483,26 +419,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
                 timeString = formatDate("h:mm a", mUserReminderDate);
             }
             mTimeEditText.setText(timeString);
-//            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//            if(hour<9){
-//                timeOption = time24?mDefaultTimeOptions24H[0]:mDefaultTimeOptions12H[0];
-//            }
-//            else if(hour < 12){
-//                timeOption = time24?mDefaultTimeOptions24H[1]:mDefaultTimeOptions12H[1];
-//            }
-//            else if(hour < 15){
-//                timeOption = time24?mDefaultTimeOptions24H[2]:mDefaultTimeOptions12H[2];
-//            }
-//            else if(hour < 18){
-//                timeOption = time24?mDefaultTimeOptions24H[3]:mDefaultTimeOptions12H[3];
-//            }
-//            else if(hour < 21){
-//                timeOption = time24?mDefaultTimeOptions24H[4]:mDefaultTimeOptions12H[4];
-//            }
-//            else{
-//                timeOption = time24?mDefaultTimeOptions24H[5]:mDefaultTimeOptions12H[5];
-//            }
-//            mTimeEditText.setText(timeOption);
         }
     }
 
@@ -525,9 +441,6 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
     public void setDate(int year, int month, int day){
         Calendar calendar = Calendar.getInstance();
         int hour, minute;
-//        int currentYear = calendar.get(Calendar.YEAR);
-//        int currentMonth = calendar.get(Calendar.MONTH);
-//        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         Calendar reminderCalendar = Calendar.getInstance();
         reminderCalendar.set(year, month, day);
@@ -564,10 +477,7 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
             calendar.setTime(mUserReminderDate);
         }
 
-//        if(DateFormat.is24HourFormat(this) && hour == 0){
-//            //done for 24h time
-//                hour = 24;
-//        }
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -652,25 +562,18 @@ public class AddToDoActivity extends AppCompatActivity implements  DatePickerDia
         else{
             mUserToDoItem.setToDoText(mUserEnteredText);
         }
-//        mUserToDoItem.setLastEdited(mLastEdited);
 
         /*
         @moss
         i guess this a method to set reminder
         todo: will try to comment it out to check whether it's a reminder
          */
-        if(mUserReminderDate!=null){
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(mUserReminderDate);
-            calendar.set(Calendar.SECOND, 0);
-            mUserReminderDate = calendar.getTime();
-        }
-
-        /*
-        @moss
-        todo: first: have a counting days, second transfer it to days third to make it
-         */
-
+//        if(mUserReminderDate!=null){
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTime(mUserReminderDate);
+//            calendar.set(Calendar.SECOND, 0);
+//            mUserReminderDate = calendar.getTime();
+//        }
 
 
         mUserToDoItem.setHasReminder(mUserHasReminder);

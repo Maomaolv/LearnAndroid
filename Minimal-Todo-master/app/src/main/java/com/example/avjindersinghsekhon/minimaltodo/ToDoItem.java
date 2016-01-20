@@ -34,7 +34,6 @@ public class ToDoItem implements Serializable{
     @moss
     add this variable to record the time left to the due time
      */
-    private Date mCountingDate;
     private UUID mTodoIdentifier;
     private static final String TODOTEXT = "todotext";
     private static final String TODOREMINDER = "todoreminder";

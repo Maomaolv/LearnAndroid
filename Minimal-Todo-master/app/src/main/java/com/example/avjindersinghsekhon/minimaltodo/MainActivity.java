@@ -35,6 +35,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
+/**
+ * @author: Feifeigu and Qingyuanli  based on com.example.avjindersinghsekhon.minimaltodo
+ * @version v1.2
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerViewEmptySupport mRecyclerView;
